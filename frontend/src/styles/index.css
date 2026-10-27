@@ -9,11 +9,13 @@
     --font-dancing: 'Dancing Script', cursive;
   }
 
-  body {
+  html, body {
     font-family: var(--font-sans);
     background-color: #070204;
     color: #fecdd3;
     overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
   }

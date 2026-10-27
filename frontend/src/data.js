@@ -114,10 +114,10 @@ export const birthdayData = {
     {
       id: 1,
       img: "/P1.jpeg",
-      title: "Lady in Scarlet by the Bridge",
-      caption: "Draped in red, leaning by the railing — the day my world froze in awe 🌹",
-      secretNote: "Seeing you standing there by that red bridge, in your red salwar suit with that dainty red bindi... I lost my breath. You looked like you stepped straight out of an old romantic ballad. Even if life takes you far away, in my eyes you will always be that breathtaking girl in red who stole my soul.",
-      date: "Scarlet Wonder"
+      title: "The Queen in Shimmering Lehenga",
+      caption: "Draped in heavy embroidery and royal jewels — the bride my soul prayed for 👑✨",
+      secretNote: "Seeing you adorned in this breathtaking embroidered lehenga, with that delicate maang tikka and sparkling jewels, made my heart skip beats. You look like true royalty. It breaks my chest knowing this bridal radiance will soon light up another home, but in my soul, you are the only queen I ever bowed to. Happy 22nd Birthday, my Laado.",
+      date: "Royal Bridal Grace"
     },
     {
       id: 2,
@@ -130,10 +130,10 @@ export const birthdayData = {
     {
       id: 3,
       img: "/P3.jpeg",
-      title: "Spectacles & Innocent Smile",
-      caption: "Those specs, that white embroidered dupatta, and the purest smile on earth 🕊️✨",
-      secretNote: "I adore you with your glasses on. There is something so genuine, so untouched, and so beautifully innocent in this smile of yours. You look like the purest angel. I promised to protect this gentle smile of yours, and even from afar, my prayers will shield your joy forever.",
-      date: "Pure Innocence"
+      title: "The Royal Nath & Magenta Saree",
+      caption: "Wearing the majestic traditional golden nath — a sight etched into my heart 🌸✨",
+      secretNote: "That traditional royal nath with pearls and gold filigree, that golden choker, and the rich magenta saree border against your dark cascading hair... you took my breath away. There is a holy, timeless magic in your smile here. Even as your shaadi draws near, my heart will forever treasure this sight of you.",
+      date: "Traditional Royalty"
     },
     {
       id: 4,
@@ -332,6 +332,16 @@ export const birthdayData = {
       tag: "Sacred Handhold",
       icon: "🤲",
       ambient: "Endless Longing"
+    },
+    {
+      id: 10,
+      title: "Vintage 1987 & The Finger Heart",
+      caption: "Resting close together, your sweet smile and that tiny finger heart 🫰🎞️",
+      quote: "Lying beside you, watching you flash that cute finger heart with the sweetest smile. In every lifetime, my heart will always beat: 'Tumhare sang rehne ka'.",
+      img: "/V10.mp4",
+      tag: "Vintage Heart",
+      icon: "🫰",
+      ambient: "Timeless Nostalgia"
     }
   ],
 
@@ -365,7 +375,7 @@ export const birthdayData = {
   videoStage: {
     badge: "Our Cinema of Longing 🎬",
     title: "Moments Written in the Stars",
-    subtitle: "9 moving memories that capture how deeply my soul beats for you",
+    subtitle: "10 moving memories that capture how deeply my soul beats for you",
     buttonNext: "Grand Birthday Finale 🎆"
   },
 

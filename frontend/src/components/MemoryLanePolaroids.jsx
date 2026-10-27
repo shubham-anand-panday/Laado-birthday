@@ -40,6 +40,7 @@ const MemoryLanePolaroids = ({ onNext, partnerName = 'Shristi', memoriesData = [
     const nextIdx = (currentIndex + 1) % memories.length;
     setCurrentIndex(nextIdx);
     scrollRibbon(nextIdx);
+    window.scrollTo({ left: 0, behavior: 'instant' });
   };
 
   const handlePrev = () => {
@@ -48,6 +49,7 @@ const MemoryLanePolaroids = ({ onNext, partnerName = 'Shristi', memoriesData = [
     const prevIdx = (currentIndex - 1 + memories.length) % memories.length;
     setCurrentIndex(prevIdx);
     scrollRibbon(prevIdx);
+    window.scrollTo({ left: 0, behavior: 'instant' });
   };
 
   const handleSelectPhoto = (idx) => {
@@ -55,19 +57,30 @@ const MemoryLanePolaroids = ({ onNext, partnerName = 'Shristi', memoriesData = [
     setIsFlipped(false);
     setCurrentIndex(idx);
     scrollRibbon(idx);
+    window.scrollTo({ left: 0, behavior: 'instant' });
   };
 
   const scrollRibbon = (index) => {
     if (ribbonRef.current) {
-      const items = ribbonRef.current.children;
-      if (items[index]) {
-        items[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      const ribbon = ribbonRef.current;
+      const items = ribbon.children;
+      const target = items[index];
+      if (target) {
+        // Calculate position strictly within the ribbon container to prevent window horizontal shift
+        const targetLeft = target.offsetLeft;
+        const targetWidth = target.offsetWidth;
+        const ribbonWidth = ribbon.clientWidth;
+        const scrollTarget = targetLeft - (ribbonWidth / 2) + (targetWidth / 2);
+        ribbon.scrollTo({
+          left: Math.max(0, scrollTarget),
+          behavior: 'smooth'
+        });
       }
     }
   };
 
   return (
-    <div ref={containerRef} className="relative min-h-[85vh] w-full flex flex-col items-center justify-center p-3 sm:p-5 text-center select-none">
+    <div ref={containerRef} className="relative min-h-[85vh] w-full max-w-full flex flex-col items-center justify-center p-3 sm:p-5 text-center select-none overflow-x-hidden">
       
       {/* Soft Ambient Crimson Atmosphere */}
       <div className="absolute w-[600px] h-[600px] rounded-full bg-radial from-red-950/40 via-red-900/15 to-transparent blur-3xl pointer-events-none" />
@@ -412,24 +425,24 @@ const MemoryLanePolaroids = ({ onNext, partnerName = 'Shristi', memoriesData = [
           {/* Modal Container */}
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative max-w-4xl max-h-[90vh] flex flex-col items-center cursor-default bg-[#120306] p-4 sm:p-6 rounded-3xl border border-red-800/80 shadow-[0_0_80px_rgba(220,38,38,0.4)]"
+            className="relative w-full max-w-[92vw] sm:max-w-2xl max-h-[90vh] flex flex-col items-center justify-center cursor-default bg-[#120306] p-3.5 sm:p-6 rounded-3xl border border-red-800/80 shadow-[0_0_80px_rgba(220,38,38,0.4)] mx-auto overflow-y-auto"
           >
-            <div className="relative max-h-[72vh] flex items-center justify-center overflow-hidden rounded-2xl bg-black">
+            <div className="relative w-full max-h-[62vh] flex items-center justify-center overflow-hidden rounded-2xl bg-black">
               <img
                 src={zoomedImg.img}
                 alt={zoomedImg.title}
-                className="max-w-full max-h-[72vh] object-contain rounded-2xl shadow-2xl"
+                className="w-auto h-auto max-w-full max-h-[62vh] object-contain rounded-2xl shadow-2xl mx-auto block"
               />
             </div>
             
-            <div className="mt-4 text-center">
-              <h4 className="text-white font-serif-luxury text-lg sm:text-xl font-bold tracking-wide">
+            <div className="mt-3 text-center px-2 w-full">
+              <h4 className="text-white font-serif-luxury text-base sm:text-xl font-bold tracking-wide">
                 {zoomedImg.title}
               </h4>
-              <p className="text-red-300 font-handwriting-cute text-2xl sm:text-3xl mt-1 font-bold">
+              <p className="text-red-200 font-handwriting-cute text-lg sm:text-2xl mt-0.5 font-bold leading-snug">
                 "{zoomedImg.caption}"
               </p>
-              <span className="inline-block mt-2 text-[11px] font-mono text-red-400 font-bold uppercase tracking-wider bg-red-950/80 px-3 py-1 rounded-full border border-red-800/50">
+              <span className="inline-block mt-1.5 text-[10px] sm:text-[11px] font-mono text-red-400 font-bold uppercase tracking-wider bg-red-950/80 px-3 py-0.5 rounded-full border border-red-800/50">
                 {zoomedImg.date}
               </span>
             </div>
