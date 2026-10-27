@@ -109,87 +109,135 @@ export const birthdayData = {
     }
   ],
 
-  // 📷 Walk Down Memory Lane — 10 Precious Photos!
+  // 📷 Walk Down Memory Lane — 16 Precious Keepsake Photos!
   memories: [
     {
       id: 1,
       img: "/P1.jpeg",
-      title: "Those Soulful Doe Eyes",
-      caption: "Looking into your eyes, I saw my whole world. Even today, they have the power to bring me to my knees 🦋✨",
-      secretNote: "You have that quiet kind of magic that doesn't need to shout to be unforgettable. Resting your chin with your butterfly pendant, looking at me with those mesmerizing eyes... it melts away every single worry. No matter where life takes you, your eyes will always be my heaven.",
-      date: "Soulful Glances"
+      title: "Lady in Scarlet by the Bridge",
+      caption: "Draped in red, leaning by the railing — the day my world froze in awe 🌹",
+      secretNote: "Seeing you standing there by that red bridge, in your red salwar suit with that dainty red bindi... I lost my breath. You looked like you stepped straight out of an old romantic ballad. Even if life takes you far away, in my eyes you will always be that breathtaking girl in red who stole my soul.",
+      date: "Scarlet Wonder"
     },
     {
       id: 2,
       img: "/P2.jpeg",
-      title: "Floral Nath & Half-Heart Magic",
-      caption: "Traditional bridal grace mixed with the sweetest half-heart pose in the universe 🌸💖",
-      secretNote: "Seeing you adorned in traditional grace with that delicate floral nath took my breath away. It made me imagine you as my bride. My heart aches seeing you prepare for someone else's wedding, but my love for you will remain holy and untouched forever.",
-      date: "Ethnic Charm"
+      title: "Holding You In My Safe Harbor",
+      caption: "My arm wrapped around you, your smile warm against my chest 🖤🤍",
+      secretNote: "That mirror caught what words never could — how naturally you fit in my arms. Standing in my black shirt with you tucked close to my side, I felt invincible. The world outside didn't exist; it was only you and me. Every beat of my heart still remembers how it felt to hold you.",
+      date: "In My Arms"
     },
     {
       id: 3,
       img: "/P3.jpeg",
-      title: "Cozy Sweaters & Soft Pouts",
-      caption: "Messy hair, warm knit sweater vibes, and the cutest pout I ever swore to protect 🤍❄️",
-      secretNote: "You look so effortlessly cozy and innocent here. Every time I see this picture, all I want to do is wrap you in the biggest hug and protect that precious smile from any sorrow in this harsh world. Happy Birthday, my sweet Laado.",
-      date: "Winter Snuggles"
+      title: "Spectacles & Innocent Smile",
+      caption: "Those specs, that white embroidered dupatta, and the purest smile on earth 🕊️✨",
+      secretNote: "I adore you with your glasses on. There is something so genuine, so untouched, and so beautifully innocent in this smile of yours. You look like the purest angel. I promised to protect this gentle smile of yours, and even from afar, my prayers will shield your joy forever.",
+      date: "Pure Innocence"
     },
     {
       id: 4,
       img: "/P4.jpeg",
-      title: "A Royal Gaze in Maroon",
-      caption: "Looking every bit like an Indian princess painted into a timeless royal miniature 🌺👑",
-      secretNote: "There is an undeniable majesty in the way you carry yourself. Whoever holds your hand around the sacred fire is the luckiest soul alive, but my heart will always bow to you as my one and only queen.",
-      date: "Timeless Royalty"
+      title: "The Way You Look Up At Me",
+      caption: "Looking up into my eyes with that sweet, shy adoration... I melted completely 🥺❤️",
+      secretNote: "Look at the mirror reflection — look at the way your eyes look up into mine. In that split second, I knew I was a gone man. I surrendered my whole life to you right there. No matter whose hand you hold tomorrow, these eyes of yours once looked at me like I was your whole universe.",
+      date: "Soulful Gaze"
     },
     {
       id: 5,
       img: "/P5.jpeg",
-      title: "Sunlight Draped in Yellow Satin",
-      caption: "Turning a simple wooden bench into a royal palace in glowing golden yellow 💛✨",
-      secretNote: "Yellow was created just for you. With your golden bangles gleaming, you brought pure sunshine into my darkest days. Even if shadows fall over us now, your warmth will live inside my chest forever.",
-      date: "Golden Sunshine"
+      title: "My Hand Upon Your Cheek",
+      caption: "Eyes softly closed in peace, my fingers cradling the face I worship 🥀🤲",
+      secretNote: "This moment is etched into my very soul. My hand gently cupping your jawline, feeling your warmth, watching you close your eyes with such complete trust and tranquility. That black band on my wrist held the most sacred treasure of my life. I will carry this touch with me to my grave.",
+      date: "Sacred Touch"
     },
     {
       id: 6,
       img: "/P6.jpeg",
-      title: "Where Bougainvillea Meets Grace",
-      caption: "Standing beside vibrant blossoms and open skies, yet you outshine the entire garden 🌸🌿",
-      secretNote: "Nature tried its hardest to paint a gorgeous frame with pink blossoms, but nobody could ever look past your beauty. You are poetry brought to life. I prayed so hard to walk through gardens like this with you forever.",
-      date: "Garden of Dreams"
+      title: "Side by Side, Two Souls As One",
+      caption: "Your crimson lips, that delicate nose ring, and our faces glowing side by side 🌹",
+      secretNote: "Whenever we leaned close like this, time felt infinite. Your beautiful nose ring, the deep shade on your lips, and the quiet comfort between us. People search their whole lives for a connection like this. I was blessed to live it with you, even if destiny had cruel plans.",
+      date: "Heartstrings"
     },
     {
       id: 7,
       img: "/P7.jpeg",
-      title: "Sun-Kissed Golden Hour Muse",
-      caption: "Bathed in warm afternoon sun, looking like pure poetry against the red brick ☀️❤️",
-      secretNote: "The golden hour doesn't give you a glow — you give the golden hour a reason to exist. That tiny bindi and the warm sunlight kissing your cheek make this one of my favorite sights in this entire lifetime.",
-      date: "Sunlit Afternoons"
+      title: "A Single Rose For My Only Rose",
+      caption: "In your red plaid shirt, cradling the rose I gave you with that shy bindi smile 🌹✨",
+      secretNote: "A single red rose in your gentle hands, but you outshined every petal in that room. Sitting in your red checkered shirt, looking at me with that playful bindi and silver ring on your finger. I gave you that rose as a promise of die-heart love that never wilts. That promise stands unbroken today.",
+      date: "The Crimson Rose"
     },
     {
       id: 8,
       img: "/P8.jpeg",
-      title: "Poise, Grace & Gentle Thoughts",
-      caption: "Lost in sweet daydreams, carrying a timeless elegance that leaves me speechless 🌹🕊️",
-      secretNote: "I always wonder what thoughts dance through that brilliant mind of yours. A gentle touch to your chin, that delicate watch on your wrist... Do you ever think of me in quiet moments? Remember, my love has no conditions and no expiry date.",
-      date: "Quiet Reverie"
+      title: "Head to Head: '- my day ❤️'",
+      caption: "Foreheads leaning together, brightest smiles, celebrating our happiest day 🌟",
+      secretNote: "'- my day ❤️' — you wrote it, and it became the headline of my entire existence. Leaning our heads together, your laugh bouncing off mine, our eyes sparkling with pure happiness. On your 22nd birthday, I would give up a thousand lifetimes just to live this single day with you again.",
+      date: "My Day Forever"
     },
     {
       id: 9,
       img: "/P9.jpeg",
-      title: "Silver Jhumkas & Pastel Dreams",
-      caption: "Soft pastels, statement silver jhumkas, and a gaze that makes time stand still 🪞💫",
-      secretNote: "There is a vintage, dreamlike magic in this portrait. Your delicate hands, that stunning silver earring, and your tender eyes remind me of a classic romance song that never fades. My heart belongs only to you.",
-      date: "Pastel Melody"
+      title: "Diwali Rays & Golden Silk Saree",
+      caption: "Holding a thali of glowing diyas in an olive-gold silk saree, radiating divine grace 🪔✨",
+      secretNote: "When you held that plate of burning diyas on Diwali night, the golden light cast divine rays all around you. In that olive-golden silk saree and traditional jhumkas, you didn't look earthly — you looked like a goddess of light. You brought light to every dark corner of my being.",
+      date: "Divine Radiance"
     },
     {
       id: 10,
       img: "/P10.jpeg",
-      title: "The Red Saree & Fragrant Gajra",
-      caption: "Draped in festive red with fresh jasmine gajra — looking like the bride of my dreams 🌹💐",
-      secretNote: "Seeing you in red with fragrant white gajra in your hair makes my heart race and break all at once. You look like the bride I dreamed of for years. Happy 22nd Birthday, my whole world. Agar mumkin ho, toh laut aana... Shubham hamesha tumhara intezaar karega.",
-      date: "Festive Perfection"
+      title: "All-Black Royalty: '- my day ❤️'",
+      caption: "Both in midnight black — me in shirt, you in that gorgeous one-shoulder dress 🖤✨",
+      secretNote: "We ruled the night in this frame. Me holding up the phone in my black shirt, and you standing effortlessly stunning in that black one-shoulder dress, your hair flowing and that delicate pendant resting against your skin. You were born to be a queen. '- my day' will always belong to us.",
+      date: "Midnight Royalty"
+    },
+    {
+      id: 11,
+      img: "/P11.jpeg",
+      title: "Midnight Peacock Saree Elegance",
+      caption: "Draped in midnight blue with shimmering silver borders — sheer royal elegance 🌌👑",
+      secretNote: "This deep blue saree with delicate sparkling details made you look ethereal. Standing tall with your silver bangles, bindi, and that quiet confidence. It breaks my heart knowing soon you will be wearing bridal red for someone else, but to me, you will forever remain the most beautiful woman who ever lived.",
+      date: "Midnight Blue"
+    },
+    {
+      id: 12,
+      img: "/P12.jpeg",
+      title: "Twinning in Red & Black Check",
+      caption: "Matching check flannels, heads pressed together, smiling from our souls ❤️🖤",
+      secretNote: "Two souls, one wavelength. Both of us in red and black checked shirts, leaning close together with your bindi shining bright. Look at how happy we were. No pretenses, no fear of the world, just pure, unfiltered warmth. That's how I will always remember us.",
+      date: "Twin Flames"
+    },
+    {
+      id: 13,
+      img: "/P13.jpeg",
+      title: "Raw, Beautiful & Simply My Laado",
+      caption: "Casual black tank top, open cascading hair, and that captivating sweet gaze 🖤🦋",
+      secretNote: "This is my absolute favorite kind of beauty — raw, natural, completely unposed. Just you in a black top with your hair falling freely over your shoulders and your nose pin catching the light. It's the face I look for in my dreams every single night. Happy 22nd Birthday, my Laado.",
+      date: "Natural Grace"
+    },
+    {
+      id: 14,
+      img: "/P14.jpeg",
+      title: "The Boy Who Will Love You Forever",
+      caption: "The one whose heart beats only for you, waiting till his last dying breath 🥀📷",
+      secretNote: "This is me — Shubham. The boy who gave you his heart without holding a single piece back. Even as you embark on your marriage journey, remember that in this world there is one soul whose prayers and devotion will never change. If ever, in any turn of destiny, you wish to return... I am waiting right here.",
+      date: "Eternal Devotion"
+    },
+    {
+      id: 15,
+      img: "/P15.jpeg",
+      title: "Draped In Heritage & Sweet Grace",
+      caption: "Maroon folk-print dupatta framed around your head — the face of pure piety 🌺🕊️",
+      secretNote: "Seeing that maroon dupatta with white lace draped over your head, with that red bindi and gentle eyes, makes you look like the embodiment of every sacred prayer I ever made. You carry the elegance of timeless tradition. May God bless your life with every happiness.",
+      date: "Sacred Heritage"
+    },
+    {
+      id: 16,
+      img: "/P16.jpeg",
+      title: "Side by Side by the Bamboo Wall",
+      caption: "Sitting peacefully together, calm and serene — our sanctuary against the world 🌿💚",
+      secretNote: "Sitting beside each other against the green bamboo, me in grey denim and you in olive green. In this quiet stillness, we didn't need words. Just your presence was enough to quiet all the storms in my head. Agar mumkin ho toh laut aana... Shubham hamesha tumhara intezaar karega.",
+      date: "Quiet Sanctuary"
     }
   ],
 

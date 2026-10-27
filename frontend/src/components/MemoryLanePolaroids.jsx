@@ -6,6 +6,7 @@ const MemoryLanePolaroids = ({ onNext, partnerName = 'Shristi', memoriesData = [
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [viewMode, setViewMode] = useState('spotlight'); // 'spotlight' | 'grid'
+  const [zoomedImg, setZoomedImg] = useState(null);
   const cardRef = useRef(null);
   const ribbonRef = useRef(null);
   const containerRef = useRef(null);
@@ -103,7 +104,7 @@ const MemoryLanePolaroids = ({ onNext, partnerName = 'Shristi', memoriesData = [
                 : 'text-red-300 hover:text-white'
             }`}
           >
-            <span>All 10 Keepsakes 🖼️</span>
+            <span>All {memories.length} Keepsakes 🖼️</span>
           </button>
         </div>
       </div>
@@ -115,88 +116,135 @@ const MemoryLanePolaroids = ({ onNext, partnerName = 'Shristi', memoriesData = [
           {/* 3D Flappable Hero Polaroid */}
           <div
             ref={cardRef}
-            className="gsap-hero-polaroid relative w-80 sm:w-96 min-h-[460px] perspective-[1200px]"
+            className="gsap-hero-polaroid relative w-full max-w-[340px] sm:max-w-[400px] min-h-[480px] sm:min-h-[520px] perspective-1200"
           >
             <div
-              onClick={handleFlip}
-              className={`w-full h-full relative transition-transform duration-700 cursor-pointer [transform-style:preserve-3d] ${
-                isFlipped ? '[transform:rotateY(180deg)]' : ''
+              className={`w-full h-full relative transition-transform duration-700 transform-style-3d ${
+                isFlipped ? 'rotate-y-180' : ''
               }`}
             >
               {/* FRONT OF POLAROID */}
-              <div className="w-full h-full bg-[#fffbfd] p-4 sm:p-5 pb-6 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.85)] flex flex-col items-center border-2 border-red-900/60 [backface-visibility:hidden] relative">
-                
+              <div
+                onClick={!isFlipped ? handleFlip : undefined}
+                className={`w-full bg-[#fffbfd] p-3.5 sm:p-5 pb-5 sm:pb-6 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.85)] flex flex-col items-center border-2 border-red-900/60 backface-hidden relative transition-opacity duration-300 ${
+                  isFlipped ? 'pointer-events-none opacity-0 select-none' : 'pointer-events-auto opacity-100 cursor-pointer'
+                }`}
+              >
                 {/* Washi Tape Sticker in Crimson */}
                 <div className="absolute -top-3 w-32 h-6 bg-gradient-to-r from-red-800 via-rose-700 to-red-800 rounded-xs shadow-xs rotate-1 border-t border-b border-red-400/50 flex items-center justify-center">
                   <span className="text-[10px] text-white font-mono tracking-wider font-bold">♥ MEMORY #{currentIndex + 1} ♥</span>
                 </div>
 
-                {/* Photo Display */}
-                <div className="w-full h-72 sm:h-80 bg-stone-900 rounded-2xl overflow-hidden relative shadow-inner mt-2 border border-red-950">
+                {/* Photo Display - Uncropped with Ambient Backdrop */}
+                <div className="w-full h-72 sm:h-88 bg-stone-950/95 rounded-2xl overflow-hidden relative shadow-inner mt-2 border border-red-950/80 flex items-center justify-center group/photo">
+                  {/* Ambient Blurred Aura to fill backdrop seamlessly with exact photo hues */}
+                  <img
+                    src={current.img}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 w-full h-full object-cover blur-md scale-110 opacity-35 pointer-events-none"
+                  />
+                  {/* Complete 100% Uncropped Main Photo */}
                   <img
                     src={current.img}
                     alt={current.title}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    className="relative z-10 max-w-full max-h-full object-contain transition-transform duration-500 group-hover/photo:scale-[1.02]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none z-20" />
+
+                  {/* Expand Fullscreen Button */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      audio.playTap();
+                      setZoomedImg(current);
+                    }}
+                    className="absolute top-3 right-3 z-30 w-8 h-8 rounded-full bg-black/60 hover:bg-red-700 text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all cursor-pointer shadow-md hover:scale-110 active:scale-95"
+                    title="View Full Uncropped Photo"
+                  >
+                    <i className="ri-fullscreen-line text-sm"></i>
+                  </button>
                 </div>
 
                 {/* Caption & Date */}
-                <div className="w-full mt-3.5 px-2 text-center flex flex-col items-center justify-center">
+                <div className="w-full mt-3 px-1 text-center flex flex-col items-center justify-center">
                   <p className="font-handwriting-cute text-2xl sm:text-3xl text-stone-950 font-bold leading-snug">
                     {current.caption}
                   </p>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="text-[10px] font-mono text-red-700 font-bold uppercase tracking-wider bg-red-50 px-2 py-0.5 rounded-full border border-red-200">
+                  <div className="flex items-center gap-2 mt-1.5 flex-wrap justify-center">
+                    <span className="text-[10px] font-mono text-red-700 font-bold uppercase tracking-wider bg-red-50 px-2.5 py-0.5 rounded-full border border-red-200">
                       {current.date}
                     </span>
-                    <span className="text-[11px] text-red-600 font-medium">
-                      Tap card to turn over ↺
-                    </span>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleFlip();
+                      }}
+                      className="text-[11px] text-red-600 hover:text-red-700 font-bold flex items-center gap-1 bg-red-50 hover:bg-red-100 px-2.5 py-0.5 rounded-full border border-red-200 transition-colors cursor-pointer active:scale-95"
+                    >
+                      <span>Read Secret Note 💌 ↺</span>
+                    </button>
                   </div>
                 </div>
               </div>
 
               {/* BACK OF POLAROID (Secret Love Postcard) */}
-              <div className="absolute inset-0 w-full h-full bg-[#fff9fa] p-6 sm:p-7 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.85)] flex flex-col justify-between border-2 border-red-600/70 [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                
+              <div
+                onClick={isFlipped ? handleFlip : undefined}
+                className={`absolute inset-0 w-full h-full bg-[#fff9fa] p-4 sm:p-6 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.85)] flex flex-col justify-between border-2 border-red-600/70 backface-hidden rotate-y-180 transition-opacity duration-300 ${
+                  isFlipped ? 'pointer-events-auto opacity-100 z-30 cursor-pointer' : 'pointer-events-none opacity-0 z-0 select-none'
+                }`}
+              >
                 {/* Postcard Top Section */}
-                <div className="flex justify-between items-start border-b border-red-200 pb-3">
+                <div className="flex justify-between items-center border-b border-red-200/80 pb-2.5 shrink-0">
                   <div className="flex items-center gap-2 text-left">
-                    <div className="w-8 h-8 rounded-full bg-red-600/15 text-red-600 flex items-center justify-center text-sm font-bold">
+                    <div className="w-8 h-8 rounded-full bg-red-600/15 text-red-600 flex items-center justify-center text-sm font-bold shrink-0">
                       💌
                     </div>
                     <div>
-                      <span className="font-serif-luxury text-sm font-bold text-stone-950 block">
+                      <span className="font-serif-luxury text-xs sm:text-sm font-bold text-stone-950 block leading-tight">
                         A Dying Heart's Vow for {partnerName}
                       </span>
                       <span className="text-[10px] text-red-600 font-mono">
-                        Memory #{currentIndex + 1}
+                        Memory #{currentIndex + 1} • {current.date}
                       </span>
                     </div>
                   </div>
 
                   {/* Postage Stamp */}
-                  <div className="w-11 h-14 border-2 border-dashed border-red-600 rounded-sm flex flex-col items-center justify-center text-[9px] text-red-700 font-mono font-bold bg-white">
+                  <div className="w-10 h-12 sm:w-11 sm:h-14 border-2 border-dashed border-red-600 rounded-sm flex flex-col items-center justify-center text-[8px] sm:text-[9px] text-red-700 font-mono font-bold bg-white shrink-0 shadow-2xs">
                     <span>DIE</span>
-                    <span className="text-xs text-red-600">❤</span>
+                    <span className="text-xs text-red-600 leading-none">❤</span>
                     <span>HEART</span>
                   </div>
                 </div>
 
-                {/* Secret Note Body */}
-                <div className="my-auto py-3 text-left">
-                  <p className="font-handwriting-cute text-2xl sm:text-3xl text-stone-900 font-bold leading-relaxed italic">
+                {/* Secret Note Body (Responsive with Smooth Scrolling for Long Notes) */}
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className="my-auto py-2.5 sm:py-3.5 text-left overflow-y-auto max-h-[250px] sm:max-h-[300px] pr-1.5 custom-scrollbar cursor-text"
+                >
+                  <p className="font-handwriting-cute text-xl sm:text-2xl md:text-3xl text-stone-900 font-bold leading-relaxed italic">
                     "{current.secretNote}"
                   </p>
                 </div>
 
                 {/* Postcard Sign-off */}
-                <div className="border-t border-red-200 pt-3 flex justify-between items-center text-xs">
-                  <span className="font-mono text-[10px] text-stone-600 font-medium">
-                    Tap to view photo ↺
-                  </span>
-                  <span className="font-script-romantic text-2xl text-red-600 font-bold">
+                <div className="border-t border-red-200/80 pt-2.5 sm:pt-3 flex justify-between items-center text-xs shrink-0">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleFlip();
+                    }}
+                    className="font-mono text-[10px] sm:text-[11px] text-stone-700 hover:text-red-700 font-bold flex items-center gap-1.5 bg-stone-100 hover:bg-red-100/70 px-3 py-1.5 rounded-full border border-stone-300 transition-colors cursor-pointer shadow-xs active:scale-95"
+                  >
+                    <i className="ri-refresh-line text-sm text-red-600"></i>
+                    <span>View Photo ↺</span>
+                  </button>
+                  <span className="font-script-romantic text-xl sm:text-2xl text-red-600 font-bold">
                     Yours Forever Shubham ❤️
                   </span>
                 </div>
@@ -234,7 +282,7 @@ const MemoryLanePolaroids = ({ onNext, partnerName = 'Shristi', memoriesData = [
           {/* Horizontal Filmstrip Ribbon in Red & Black Theme */}
           <div className="w-full max-w-2xl mt-4 px-2">
             <div className="text-[11px] font-mono uppercase tracking-wider text-red-400 font-bold mb-2 flex items-center justify-between">
-              <span>📷 10 Moments in Time</span>
+              <span>📷 {memories.length} Moments in Time</span>
               <span>Click any photo to view</span>
             </div>
 
@@ -253,8 +301,8 @@ const MemoryLanePolaroids = ({ onNext, partnerName = 'Shristi', memoriesData = [
                   }`}
                   title={`Photo #${idx + 1}: ${m.caption}`}
                 >
-                  <div className="w-full h-11 sm:h-14 bg-stone-900 rounded-lg overflow-hidden">
-                    <img src={m.img} alt={m.caption} className="w-full h-full object-cover" />
+                  <div className="w-full h-11 sm:h-14 bg-stone-950 rounded-lg overflow-hidden flex items-center justify-center">
+                    <img src={m.img} alt={m.caption} className="w-full h-full object-cover object-top" />
                   </div>
                   <div className="text-[9px] font-mono font-bold text-red-200 mt-1 truncate">
                     #{idx + 1}
@@ -266,7 +314,7 @@ const MemoryLanePolaroids = ({ onNext, partnerName = 'Shristi', memoriesData = [
         </div>
       )}
 
-      {/* ===================== VIEW MODE 2: ALL 10 KEEPSAKES GRID ===================== */}
+      {/* ===================== VIEW MODE 2: ALL KEEPSAKES GRID ===================== */}
       {viewMode === 'grid' && (
         <div className="relative z-10 w-full max-w-4xl my-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6 px-2">
@@ -286,9 +334,35 @@ const MemoryLanePolaroids = ({ onNext, partnerName = 'Shristi', memoriesData = [
                   {/* Tape */}
                   <div className="w-16 h-4 mx-auto -mt-5 bg-red-800 rounded-xs shadow-2xs border-t border-b border-red-400/50" />
 
-                  {/* Photo */}
-                  <div className="w-full h-48 bg-stone-900 rounded-xl overflow-hidden mt-1 shadow-inner">
-                    <img src={m.img} alt={m.caption} className="w-full h-full object-cover" />
+                  {/* Photo Display - Uncropped with Ambient Aura */}
+                  <div className="w-full h-64 sm:h-72 bg-stone-950/95 rounded-xl overflow-hidden mt-1 shadow-inner relative flex items-center justify-center border border-red-950/40 group/gridphoto">
+                    {/* Ambient Blurred Aura */}
+                    <img
+                      src={m.img}
+                      alt=""
+                      aria-hidden="true"
+                      className="absolute inset-0 w-full h-full object-cover blur-sm scale-110 opacity-30 pointer-events-none"
+                    />
+                    {/* 100% Uncropped Photo */}
+                    <img
+                      src={m.img}
+                      alt={m.caption}
+                      className="relative z-10 max-w-full max-h-full object-contain transition-transform duration-300 group-hover/gridphoto:scale-[1.03]"
+                    />
+                    
+                    {/* Quick Expand Button */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        audio.playTap();
+                        setZoomedImg(m);
+                      }}
+                      className="absolute top-2 right-2 z-20 w-7 h-7 rounded-full bg-black/60 hover:bg-red-700 text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition-all cursor-pointer opacity-80 hover:opacity-100 shadow-md"
+                      title="View Full Uncropped Photo"
+                    >
+                      <i className="ri-fullscreen-line text-xs"></i>
+                    </button>
                   </div>
 
                   {/* Caption & Date */}
@@ -319,6 +393,49 @@ const MemoryLanePolaroids = ({ onNext, partnerName = 'Shristi', memoriesData = [
         <span>The Unbreakable Promise Ticket ✨</span>
         <i className="ri-arrow-right-line text-lg"></i>
       </button>
+
+      {/* ===================== FULLSCREEN LIGHTBOX MODAL (100% UNCROPPED) ===================== */}
+      {zoomedImg && (
+        <div
+          onClick={() => setZoomedImg(null)}
+          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center p-3 sm:p-6 animate-fade-in cursor-pointer"
+        >
+          {/* Close Button */}
+          <button
+            onClick={() => setZoomedImg(null)}
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 w-11 h-11 rounded-full bg-red-700 hover:bg-red-600 text-white flex items-center justify-center text-2xl transition-all shadow-xl cursor-pointer z-50 border border-red-400/50 hover:scale-110"
+            title="Close Lightbox"
+          >
+            <i className="ri-close-line"></i>
+          </button>
+
+          {/* Modal Container */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative max-w-4xl max-h-[90vh] flex flex-col items-center cursor-default bg-[#120306] p-4 sm:p-6 rounded-3xl border border-red-800/80 shadow-[0_0_80px_rgba(220,38,38,0.4)]"
+          >
+            <div className="relative max-h-[72vh] flex items-center justify-center overflow-hidden rounded-2xl bg-black">
+              <img
+                src={zoomedImg.img}
+                alt={zoomedImg.title}
+                className="max-w-full max-h-[72vh] object-contain rounded-2xl shadow-2xl"
+              />
+            </div>
+            
+            <div className="mt-4 text-center">
+              <h4 className="text-white font-serif-luxury text-lg sm:text-xl font-bold tracking-wide">
+                {zoomedImg.title}
+              </h4>
+              <p className="text-red-300 font-handwriting-cute text-2xl sm:text-3xl mt-1 font-bold">
+                "{zoomedImg.caption}"
+              </p>
+              <span className="inline-block mt-2 text-[11px] font-mono text-red-400 font-bold uppercase tracking-wider bg-red-950/80 px-3 py-1 rounded-full border border-red-800/50">
+                {zoomedImg.date}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

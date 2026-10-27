@@ -349,7 +349,7 @@ const BalloonPopWishes = ({ onNext, partnerName = 'Shristi', balloonWishes = def
             }}
             className="py-3.5 px-8 rounded-full bg-gradient-to-r from-red-700 via-rose-700 to-red-800 hover:from-red-600 hover:to-rose-600 text-white font-serif-luxury tracking-wide text-sm flex items-center gap-2 shadow-[0_4px_25px_rgba(220,38,38,0.5)] transition-all cursor-pointer transform hover:scale-105 active:scale-95 animate-pulse"
           >
-            <span>Walk Down Memory Lane (10 Photos) 📷</span>
+            <span>Walk Down Memory Lane (16 Keepsakes) 📷</span>
             <i className="ri-arrow-right-line text-lg"></i>
           </button>
         ) : (

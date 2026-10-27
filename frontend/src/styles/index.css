@@ -495,3 +495,24 @@
 .animate-ken-burns {
   animation: kenBurnsDrift 14s ease-in-out infinite alternate;
 }
+
+/* 3D Hardware Accelerated Card Flip Helpers (Cross-browser WebKit/Blink) */
+.perspective-1200 {
+  perspective: 1200px;
+  -webkit-perspective: 1200px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+}
