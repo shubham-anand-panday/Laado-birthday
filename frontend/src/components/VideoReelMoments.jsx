@@ -5,7 +5,6 @@ import { audio } from '../utils/audioEngine';
 const VideoReelMoments = ({ onNext, partnerName = 'Shristi', videosData = [] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(false);
   const [progress, setProgress] = useState(0);
   const [aspectMode, setAspectMode] = useState('reel'); // 'reel' (9:16) | 'cinema' (16:9)
   const [floatingHearts, setFloatingHearts] = useState([]);
@@ -29,6 +28,14 @@ const VideoReelMoments = ({ onNext, partnerName = 'Shristi', videosData = [] }) 
 
   const current = moments[currentIndex] || moments[0];
   const isVideo = current.img.endsWith('.mp4') || current.img.endsWith('.webm');
+
+  // Ensure video voice is permanently removed / muted on every moment change
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.volume = 0;
+    }
+  }, [currentIndex]);
 
   useEffect(() => {
     // GSAP entrance on video stage with clearProps
@@ -77,19 +84,6 @@ const VideoReelMoments = ({ onNext, partnerName = 'Shristi', videosData = [] }) 
     } else {
       videoRef.current.pause();
       setIsPlaying(false);
-    }
-  };
-
-  const toggleMute = (e) => {
-    e?.stopPropagation();
-    audio.playTap();
-    if (!videoRef.current) return;
-    const nextMuted = !isMuted;
-    videoRef.current.muted = nextMuted;
-    setIsMuted(nextMuted);
-
-    if (!nextMuted) {
-      audio.pause();
     }
   };
 
@@ -212,43 +206,30 @@ const VideoReelMoments = ({ onNext, partnerName = 'Shristi', videosData = [] }) 
               : 'max-w-2xl aspect-[16/10] sm:aspect-video min-h-[320px]'
           }`}
         >
-          {/* Video or Image with Ambient Blurred Backdrop */}
-          <div className="absolute inset-0 overflow-hidden cursor-pointer" onClick={togglePlayPause}>
+          {/* Video or Image Frame (100% Crisp & Clean, Zero Blur) */}
+          <div className="absolute inset-0 overflow-hidden cursor-pointer bg-black flex items-center justify-center" onClick={togglePlayPause}>
             {isVideo ? (
-              <>
-                <video
-                  src={current.img}
-                  className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110 pointer-events-none"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                />
-                <video
-                  ref={videoRef}
-                  key={current.img}
-                  src={current.img}
-                  className="relative z-10 w-full h-full object-contain"
-                  autoPlay
-                  loop
-                  playsInline
-                  muted={isMuted}
-                  onTimeUpdate={handleTimeUpdate}
-                  onEnded={handleVideoEnded}
-                  onPlay={() => setIsPlaying(true)}
-                  onPause={() => setIsPlaying(false)}
-                />
-              </>
+              <video
+                ref={videoRef}
+                key={current.img}
+                src={current.img}
+                className="w-full h-full object-contain relative z-10"
+                autoPlay
+                loop
+                playsInline
+                muted={true}
+                onTimeUpdate={handleTimeUpdate}
+                onEnded={handleVideoEnded}
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+              />
             ) : (
               <img
                 src={current.img}
                 alt={current.title}
-                className="w-full h-full object-cover animate-ken-burns"
+                className="w-full h-full object-contain"
               />
             )}
-
-            {/* Ambient Lighting Gradients */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-black/60 pointer-events-none z-10" />
 
             {/* Center Play/Pause Overlay Indicator on Pause */}
             {!isPlaying && (
@@ -265,27 +246,12 @@ const VideoReelMoments = ({ onNext, partnerName = 'Shristi', videosData = [] }) 
             {/* Chapter Tag */}
             <div className="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-white text-[11px] font-mono uppercase tracking-wider border border-red-700/60 flex items-center gap-1.5 shadow-sm">
               <span>{current.icon}</span>
-              <span className="font-bold truncate max-w-[100px] sm:max-w-none">{current.tag}</span>
+              <span className="font-bold whitespace-nowrap">{current.tag}</span>
               <span className="text-red-400">#{currentIndex + 1}/{moments.length}</span>
             </div>
 
-            {/* Controls: Audio Unmute, Play/Pause, Heart Shower */}
+            {/* Controls: Play/Pause, Heart Shower */}
             <div className="flex items-center gap-1.5">
-              {isVideo && (
-                <button
-                  onClick={toggleMute}
-                  className={`px-2.5 py-1 rounded-full backdrop-blur-md text-xs font-mono flex items-center gap-1 border transition-all cursor-pointer shadow-md ${
-                    isMuted
-                      ? 'bg-black/70 text-white/90 border-white/25 hover:bg-black/90'
-                      : 'bg-red-600 text-white border-red-400 shadow-[0_0_15px_rgba(220,38,38,0.8)] animate-pulse'
-                  }`}
-                  title={isMuted ? "Unmute Video Song" : "Mute Video"}
-                >
-                  <i className={`text-xs ${isMuted ? 'ri-volume-mute-fill text-red-300' : 'ri-volume-up-fill text-yellow-300'}`}></i>
-                  <span className="text-[11px] font-semibold">{isMuted ? 'Muted' : 'Sound ON ♫'}</span>
-                </button>
-              )}
-
               <button
                 onClick={togglePlayPause}
                 className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/70 backdrop-blur-md text-white/90 flex items-center justify-center border border-white/20 hover:bg-black/90 transition-transform active:scale-90 cursor-pointer"
@@ -327,15 +293,15 @@ const VideoReelMoments = ({ onNext, partnerName = 'Shristi', videosData = [] }) 
             <i className="ri-arrow-right-s-line text-lg"></i>
           </button>
 
-          {/* Bottom Calligraphy & Romantic Poetry */}
-          <div className="absolute bottom-4 left-3 right-3 sm:left-4 sm:right-4 z-20 text-left text-white pointer-events-none">
-            <h3 className="font-serif-luxury text-lg sm:text-2xl font-bold drop-shadow-md text-white mb-0.5 leading-tight">
+          {/* Bottom Calligraphy & Romantic Poetry - Compact & Elegant Typography */}
+          <div className="absolute bottom-2 left-2 right-2 sm:left-3 sm:right-3 z-20 text-left text-white pointer-events-none bg-gradient-to-t from-black/85 via-black/35 to-transparent pt-4 pb-1.5 px-2.5 sm:px-3.5 rounded-b-2xl">
+            <h3 className="font-serif-luxury text-xs sm:text-base font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] text-white mb-0.5 leading-tight">
               {current.title}
             </h3>
-            <p className="font-handwriting-cute text-xl sm:text-2xl text-red-200 drop-shadow-md leading-snug mb-0.5 line-clamp-2">
+            <p className="font-handwriting-cute text-sm sm:text-lg text-red-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] leading-snug mb-0.5">
               "{current.quote}"
             </p>
-            <p className="text-[10px] sm:text-xs text-red-300/80 font-mono tracking-wide drop-shadow-xs line-clamp-1">
+            <p className="text-[10px] sm:text-[11px] text-red-200/90 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] font-mono tracking-wide leading-tight">
               {current.caption}
             </p>
           </div>
@@ -375,10 +341,10 @@ const VideoReelMoments = ({ onNext, partnerName = 'Shristi', videosData = [] }) 
                 title={m.title}
               >
                 <span className="text-sm sm:text-base mb-0.5">{m.icon}</span>
-                <span className="text-[10px] font-mono font-bold text-white truncate max-w-full">
+                <span className="text-[10px] font-mono font-bold text-white whitespace-nowrap">
                   #{idx + 1}
                 </span>
-                <span className="text-[9px] font-serif-luxury text-red-300/80 truncate max-w-[65px] sm:max-w-none leading-tight font-semibold">
+                <span className="text-[9px] font-serif-luxury text-red-300/90 leading-tight font-semibold break-words max-w-[75px] sm:max-w-[90px]">
                   {m.tag}
                 </span>
               </button>

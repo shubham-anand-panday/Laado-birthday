@@ -108,15 +108,15 @@ const AudioBar = ({ currentStep, totalSteps }) => {
           {/* Track Info (Clickable to toggle play) */}
           <div
             onClick={handleToggle}
-            className="cursor-pointer select-none max-w-[120px] sm:max-w-[180px] text-left"
+            className="cursor-pointer select-none max-w-[200px] sm:max-w-[300px] text-left"
             title="Click to Play/Pause"
           >
-            <div className="text-xs sm:text-sm font-semibold text-white truncate flex items-center gap-1.5 leading-tight">
+            <div className="text-xs sm:text-sm font-semibold text-white flex items-center gap-1.5 leading-tight">
               <span>{currentTrack?.title || "Romantic Melody"}</span>
             </div>
-            <div className="text-[9px] sm:text-[10px] text-red-400 font-mono truncate flex items-center gap-1">
+            <div className="text-[9px] sm:text-[10px] text-red-400 font-mono flex items-center gap-1">
               <span>{isPlaying ? 'Playing • ' : 'Paused • '}</span>
-              <span className="truncate">{currentTrack?.artist || 'Eternal Love'}</span>
+              <span>{currentTrack?.artist || 'Eternal Love'}</span>
             </div>
           </div>
 

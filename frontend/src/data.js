@@ -241,58 +241,98 @@ export const birthdayData = {
     }
   ],
 
-  // 🎬 Living Romantic Keepsake Moments — 5 Moving Story Chapters!
+  // 🎬 Living Romantic Keepsake Moments — 9 Moving Cinema Chapters!
   videos: [
     {
       id: 1,
-      title: "Midnight Sparklers & Golden Fire",
-      caption: "The nights we laughed under the sparklers and stars ✨",
-      quote: "You brought light to parts of my soul that had been in the dark for so long. Loving you is my religion.",
+      title: "The Playful Wink in Midnight Black",
+      caption: "That sweet wink in your black one-shoulder dress that made my heart skip a beat 😉🖤",
+      quote: "One wink from you, and I forgot every sorrow in this universe. You are magic personified, my Laado.",
       img: "/V1.mp4",
-      tag: "Spark of Us",
+      tag: "Midnight Magic",
       icon: "✨",
-      ambient: "Golden Starlight"
+      ambient: "Obsidian Starlight"
     },
     {
       id: 2,
-      title: "Sunset Waves by the Shore",
-      caption: "Footprints washed away, but our love carved into eternity 🌊",
-      quote: "Just like the waves inevitably rush back to the shore, my heart will always seek its way back to you.",
+      title: "Pouts, Kisses & Silly Selfies",
+      caption: "Pouting together in the camera, laughing at our own madness 🥰❤️",
+      quote: "With you, I didn't need to pretend. We were silly, we were wild, and we were madly in love.",
       img: "/V2.mp4",
-      tag: "Ocean Whispers",
-      icon: "🌊",
-      ambient: "Sunset Glow"
+      tag: "Pure Joy",
+      icon: "💋",
+      ambient: "Blush Harmony"
     },
     {
       id: 3,
-      title: "Fluttering Crimson Blossom Breeze",
-      caption: "Petals drifting in slow motion, just like my heart surrendering to you 🌸",
-      quote: "Of all the souls blooming in this infinite universe, yours is the only one my heart has ever claimed.",
+      title: "Ethnic Grace in Red & Black",
+      caption: "Silver jhumkas swaying, draped in saree — looking like an Indian dream 🌹🖤",
+      quote: "Every fold of that saree and that tiny bindi took my breath away. You were born to be worshipped.",
       img: "/V3.mp4",
-      tag: "Die-Heart Romance",
-      icon: "🌸",
-      ambient: "Petal Symphony"
+      tag: "Scarlet Elegance",
+      icon: "🌹",
+      ambient: "Crimson Velvet"
     },
     {
       id: 4,
-      title: "Candlelit Warmth & Quiet Prayers",
-      caption: "Gentle flames dancing in the quiet, speaking what words cannot 🕯️",
-      quote: "In the silence of the night, every prayer whispers your name and asks the heavens to protect your smile.",
+      title: "Quiet Smiles on the Cafe Bench",
+      caption: "Sitting beside each other, smiling peacefully into the afternoon light ☀️🍃",
+      quote: "Just sitting next to you on that bench, breathing the same air, was the greatest peace I ever knew.",
       img: "/V4.mp4",
-      tag: "Intimate Peace",
-      icon: "🕯️",
-      ambient: "Candlelight Aura"
+      tag: "Sanctuary",
+      icon: "☕",
+      ambient: "Golden Afternoon"
     },
     {
       id: 5,
-      title: "Floating Sky Lanterns of Hope",
-      caption: "Releasing our deepest prayers into the open heavens 🏮",
-      quote: "Releasing this lantern with a silent plea to destiny: Be happy always, and if possible, come back to me.",
+      title: "Cheek Pulls & A Stolen Kiss",
+      caption: "Gently squishing your soft cheeks and kissing you — our forever agreement 🥀🥺",
+      quote: "Pulling your cheeks, making you smile, kissing you gently... my heart aches with how deeply I love you. Agar mumkin ho toh laut aana.",
       img: "/V5.mp4",
-      tag: "Celestial Dreams",
-      icon: "🏮",
-      ambient: "Heavenly Lanterns"
+      tag: "Die-Heart Love",
+      icon: "🥀",
+      ambient: "Monochrome Devotion"
     },
+    {
+      id: 6,
+      title: "Carefree Laughter & Shared Stories",
+      caption: "Lost in our own conversations, laughing like no one else existed in this world 💫",
+      quote: "The sound of your laughter was my favorite melody. I could listen to you talk for a hundred lifetimes.",
+      img: "/V6.mp4",
+      tag: "Our Laughter",
+      icon: "🕊️",
+      ambient: "Gentle Breeze"
+    },
+    {
+      id: 7,
+      title: "Twirling Into My Arms",
+      caption: "Holding your hand as you twirl with that pure, radiant smile 💃✨",
+      quote: "Watching you twirl with your hair flying, eyes shining with pure happiness. I wanted to freeze that moment forever.",
+      img: "/V7.mp4",
+      tag: "The Twirl",
+      icon: "💃",
+      ambient: "Peach Radiance"
+    },
+    {
+      id: 8,
+      title: "Peace Signs & Flying Kisses",
+      caption: "Tucked against the bamboo wall, flashing peace signs and blowing sweet kisses ✌️💋",
+      quote: "Side by side against the world. Even if destiny pulls us apart, these memories will remain untouched.",
+      img: "/V8.mp4",
+      tag: "Twin Souls",
+      icon: "✌️",
+      ambient: "Bamboo Tranquility"
+    },
+    {
+      id: 9,
+      title: "Holding Your Hand: 'Haso Na...'",
+      caption: "Gently caressing your fingers, asking you to smile, seeing your shy blush 🤲❤️",
+      quote: "Holding your soft hand in mine, feeling your pulse. My hands were made to protect yours. Yours forever, Shubham.",
+      img: "/V9.mp4",
+      tag: "Sacred Handhold",
+      icon: "🤲",
+      ambient: "Endless Longing"
+    }
   ],
 
   // ✨ Scratch Card Golden Ticket
@@ -325,7 +365,7 @@ export const birthdayData = {
   videoStage: {
     badge: "Our Cinema of Longing 🎬",
     title: "Moments Written in the Stars",
-    subtitle: "5 moving memories that capture how deeply my soul beats for you",
+    subtitle: "9 moving memories that capture how deeply my soul beats for you",
     buttonNext: "Grand Birthday Finale 🎆"
   },
 

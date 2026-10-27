@@ -169,7 +169,7 @@ const MemoryLanePolaroids = ({ onNext, partnerName = 'Shristi', memoriesData = [
 
                 {/* Caption & Date */}
                 <div className="w-full mt-3 px-1 text-center flex flex-col items-center justify-center">
-                  <p className="font-handwriting-cute text-2xl sm:text-3xl text-stone-950 font-bold leading-snug">
+                  <p className="font-handwriting-cute text-xl sm:text-2xl text-stone-950 font-bold leading-snug">
                     {current.caption}
                   </p>
                   <div className="flex items-center gap-2 mt-1.5 flex-wrap justify-center">
@@ -226,7 +226,7 @@ const MemoryLanePolaroids = ({ onNext, partnerName = 'Shristi', memoriesData = [
                   onClick={(e) => e.stopPropagation()}
                   className="my-auto py-2.5 sm:py-3.5 text-left overflow-y-auto max-h-[250px] sm:max-h-[300px] pr-1.5 custom-scrollbar cursor-text"
                 >
-                  <p className="font-handwriting-cute text-xl sm:text-2xl md:text-3xl text-stone-900 font-bold leading-relaxed italic">
+                  <p className="font-handwriting-cute text-lg sm:text-xl md:text-2xl text-stone-900 font-bold leading-relaxed italic">
                     "{current.secretNote}"
                   </p>
                 </div>
