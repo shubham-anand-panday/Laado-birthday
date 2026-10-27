@@ -5,9 +5,9 @@ import { audio } from '../utils/audioEngine';
 
 const GrandFinaleCelebration = ({
   onRestart,
-  partnerName = 'Ananya',
-  partnerAge = 20,
-  senderName = 'Forever Yours ❤️',
+  partnerName = 'Shristi',
+  partnerAge = 22,
+  senderName = 'Yours Till My Last Breath ❤️ Shubham',
   finaleData,
 }) => {
   const [activeBlessing, setActiveBlessing] = useState(0);
@@ -20,20 +20,20 @@ const GrandFinaleCelebration = ({
     {
       id: 1,
       icon: "🌟",
-      title: "Radiant Joy & Smiles",
-      text: "May your laughter echo through every room you enter, and your gorgeous smile never fade."
+      title: "Endless Joy & Radiant Smiles",
+      text: "May every path you walk be adorned with flowers, and may sorrow never touch your precious soul."
     },
     {
       id: 2,
       icon: "💫",
-      title: "Sacred Wishes & Dreams",
-      text: "May every secret prayer you whisper to the night sky blossom into a miracle this year."
+      title: "Lifelong Peace & Blessing",
+      text: "Even as you step towards your shaadi, I pray to God every single second for your eternal happiness."
     },
     {
       id: 3,
-      icon: "💖",
-      title: "Endless Love & Devotion",
-      text: "I promise to love, protect, and cherish you through every sunrise and sunset of this lifetime."
+      icon: "❤️",
+      title: "My Eternal, Undying Devotion",
+      text: "If ever possible, come back to me. And if not, know that I will love you unconditionally till my last breath."
     }
   ];
 
@@ -50,17 +50,17 @@ const GrandFinaleCelebration = ({
       );
     }, containerRef);
 
-    // Initial grand confetti blast
+    // Initial grand confetti blast in Red & Gold
     confetti({
       particleCount: 160,
       spread: 120,
       origin: { y: 0.5 },
-      colors: ['#f43f5e', '#ec4899', '#fde047', '#a855f7', '#38bdf8', '#ffffff']
+      colors: ['#dc2626', '#ef4444', '#b91c1c', '#f59e0b', '#fbbf24', '#ffffff']
     });
 
     audio.playChimeSuccess();
 
-    // Canvas heart-shaped pink & gold fireworks
+    // Canvas heart-shaped scarlet & gold fireworks
     const canvas = canvasRef.current;
     if (!canvas) return () => gctx.revert();
     const ctx = canvas.getContext('2d');
@@ -77,7 +77,7 @@ const GrandFinaleCelebration = ({
 
     // Parametric heart formula for romantic fireworks
     const createHeartFirework = (centerX, centerY) => {
-      const colors = ['#f43f5e', '#fb7185', '#ec4899', '#fde047', '#fda4af', '#f59e0b', '#ffffff'];
+      const colors = ['#dc2626', '#ef4444', '#b91c1c', '#f59e0b', '#fbbf24', '#ffffff'];
       const color = colors[Math.floor(Math.random() * colors.length)];
       const scale = Math.random() * 0.15 + 0.22;
 
@@ -100,10 +100,10 @@ const GrandFinaleCelebration = ({
     };
 
     const interval = setInterval(() => {
-      const x = Math.random() * canvas.width * 0.75 + canvas.width * 0.12;
-      const y = Math.random() * canvas.height * 0.4 + 60;
-      createHeartFirework(x, y);
-    }, 1100);
+      const randX = Math.random() * (canvas.width * 0.8) + canvas.width * 0.1;
+      const randY = Math.random() * (canvas.height * 0.5) + canvas.height * 0.1;
+      createHeartFirework(randX, randY);
+    }, 1800);
 
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -112,8 +112,8 @@ const GrandFinaleCelebration = ({
         const p = particles[i];
         p.x += p.vx;
         p.y += p.vy;
-        p.vy += 0.04; // Gentle gravity
-        p.alpha -= 0.016;
+        p.vy += 0.03; // subtle gravity
+        p.alpha -= 0.012;
 
         if (p.alpha <= 0) {
           particles.splice(i, 1);
@@ -147,21 +147,21 @@ const GrandFinaleCelebration = ({
   const triggerExtraCelebration = () => {
     audio.playChimeSuccess();
     confetti({
-      particleCount: 130,
+      particleCount: 140,
       spread: 110,
       origin: { y: 0.55 },
-      colors: ['#f43f5e', '#ec4899', '#fde047', '#fda4af', '#ffffff']
+      colors: ['#dc2626', '#ef4444', '#b91c1c', '#f59e0b', '#ffffff']
     });
 
     setTimeout(() => {
       confetti({
-        particleCount: 70,
+        particleCount: 75,
         angle: 60,
         spread: 60,
         origin: { x: 0.1, y: 0.6 }
       });
       confetti({
-        particleCount: 70,
+        particleCount: 75,
         angle: 120,
         spread: 60,
         origin: { x: 0.9, y: 0.6 }
@@ -173,7 +173,7 @@ const GrandFinaleCelebration = ({
     audio.playTap();
     kissIdRef.current += 1;
     const currentId = kissIdRef.current;
-    const emojis = ['💋', '💖', '💕', '🌹', '🥰', '✨'];
+    const emojis = ['🌹', '🥀', '❤️', '💋', '🥰', '✨'];
     const chosenEmoji = emojis[currentId % emojis.length];
 
     const rect = containerRef.current?.getBoundingClientRect();
@@ -193,20 +193,22 @@ const GrandFinaleCelebration = ({
     }, 1500);
 
     confetti({
-      particleCount: 25,
+      particleCount: 30,
       spread: 45,
       origin: {
         x: (e?.clientX || window.innerWidth / 2) / window.innerWidth,
         y: (e?.clientY || 300) / window.innerHeight
       },
-      colors: ['#f43f5e', '#fda4af', '#ffffff']
+      colors: ['#dc2626', '#ef4444', '#ffffff']
     });
   };
+
+  const ageSuffix = partnerAge === 21 ? 'ST' : partnerAge === 22 ? 'ND' : partnerAge === 23 ? 'RD' : 'TH';
 
   return (
     <div ref={containerRef} className="relative min-h-[90vh] w-full flex flex-col items-center justify-center p-3 sm:p-6 text-center select-none overflow-hidden">
       
-      {/* Light Pink Heart Fireworks Canvas */}
+      {/* Crimson Heart Fireworks Canvas */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 pointer-events-none w-full h-full z-0"
@@ -233,41 +235,41 @@ const GrandFinaleCelebration = ({
         
         {/* Crown of Love Crest */}
         <div className="flex flex-col items-center mb-2">
-          <div className="flex items-center gap-2 px-4 py-1 rounded-full bg-white/90 border border-amber-300 shadow-[0_4px_15px_rgba(245,158,11,0.25)] mb-2 animate-bounce">
-            <span className="text-amber-500 text-sm">👑</span>
-            <span className="font-serif-luxury font-bold text-xs uppercase tracking-widest text-rose-950">
-              Queen of My Heart • 20 Glorious Years
+          <div className="flex items-center gap-2 px-4 py-1 rounded-full bg-[#150407]/90 border border-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.3)] mb-2 animate-bounce">
+            <span className="text-amber-400 text-sm">👑</span>
+            <span className="font-serif-luxury font-bold text-xs uppercase tracking-widest text-amber-200">
+              Queen of My Heart • {partnerAge} Sacred Years
             </span>
-            <span className="text-amber-500 text-sm">👑</span>
+            <span className="text-amber-400 text-sm">👑</span>
           </div>
 
-          {/* Beating Sacred Diamond Heart */}
+          {/* Beating Sacred Crimson Heart */}
           <div
             onClick={handleSendKiss}
-            className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-rose-500 via-pink-500 to-rose-600 flex items-center justify-center text-4xl sm:text-5xl text-white shadow-[0_0_40px_rgba(244,63,94,0.5)] animate-heart-thump cursor-pointer hover:scale-110 transition-transform"
-            title="Tap to send kisses & love!"
+            className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-red-700 via-rose-700 to-red-600 flex items-center justify-center text-4xl sm:text-5xl text-white shadow-[0_0_40px_rgba(220,38,38,0.7)] animate-heart-thump cursor-pointer hover:scale-110 transition-transform border border-red-400/50"
+            title="Tap to send roses & love!"
           >
-            💖
+            🥀
           </div>
         </div>
 
         {/* Grand Birthday Royal Title */}
-        <span className="font-mono text-xs uppercase tracking-[0.25em] text-rose-700 font-bold mb-1">
-          ✦ {finaleData?.badge || "MAY ALL YOUR WISHES COME TRUE"} ✦
+        <span className="font-mono text-xs uppercase tracking-[0.25em] text-red-400 font-bold mb-1">
+          ✦ {finaleData?.badge || "HAPPY 22ND BIRTHDAY, MY ETERNAL LAADO 🌹"} ✦
         </span>
 
-        <h1 className="text-4xl sm:text-6xl font-serif-luxury text-rose-950 mb-1 leading-tight font-normal">
-          HAPPY {partnerAge}ST BIRTHDAY, <br />
-          <span className="font-script-romantic text-5xl sm:text-8xl text-rose-600 text-glow-rose block mt-1 font-bold">
+        <h1 className="text-4xl sm:text-6xl font-serif-luxury text-white mb-1 leading-tight font-normal">
+          HAPPY {partnerAge}{ageSuffix} BIRTHDAY, <br />
+          <span className="font-script-romantic text-5xl sm:text-8xl text-red-500 text-glow-red block mt-1 font-bold">
             {partnerName}!
           </span>
         </h1>
 
-        <p className="text-xs sm:text-sm text-rose-900/90 font-medium max-w-lg mt-1 mb-4">
-          Today, the entire universe smiles upon the most wonderful soul to ever walk this earth.
+        <p className="text-xs sm:text-sm text-red-200/90 font-light max-w-lg mt-1 mb-4">
+          Today, the entire universe bows before the most beautiful soul to ever walk this earth.
         </p>
 
-        {/* 🌟 3 Interactive Birthday Blessings Amulets */}
+        {/* 🌟 3 Interactive Birthday Blessings in Red & Black Theme */}
         <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-3 my-2">
           {blessings.map((b, idx) => (
             <div
@@ -278,47 +280,47 @@ const GrandFinaleCelebration = ({
               }}
               className={`gsap-blessing-card p-3.5 sm:p-4 rounded-2xl cursor-pointer transition-all border-2 text-left flex flex-col justify-between ${
                 activeBlessing === idx
-                  ? 'bg-white border-rose-500 shadow-[0_8px_25px_rgba(244,63,94,0.22)] scale-102 ring-2 ring-rose-300'
-                  : 'bg-white/80 hover:bg-white border-rose-200/90 opacity-80 hover:opacity-100 hover:scale-101 shadow-xs'
+                  ? 'bg-[#1e050d] border-red-500 shadow-[0_8px_25px_rgba(220,38,38,0.4)] scale-102 ring-2 ring-red-400'
+                  : 'bg-[#140407]/90 hover:bg-[#1a050b] border-red-950 opacity-80 hover:opacity-100 hover:scale-101 shadow-xs'
               }`}
             >
               <div className="flex items-center gap-2 mb-1.5">
                 <span className="text-xl">{b.icon}</span>
-                <span className="font-serif-luxury font-bold text-xs sm:text-sm text-rose-950">
+                <span className="font-serif-luxury font-bold text-xs sm:text-sm text-white">
                   {b.title}
                 </span>
               </div>
-              <p className="font-handwriting-cute text-lg sm:text-xl text-rose-900/90 leading-snug">
+              <p className="font-handwriting-cute text-lg sm:text-xl text-red-200/90 leading-snug">
                 "{b.text}"
               </p>
             </div>
           ))}
         </div>
 
-        {/* Deckle-Edge Parchment Toast Decree */}
-        <div className="parchment-sheet rounded-3xl p-6 sm:p-8 my-4 text-stone-900 shadow-[0_15px_45px_rgba(244,63,94,0.16)] border-2 border-rose-300 relative text-left">
+        {/* Deckle-Edge Toast Decree */}
+        <div className="parchment-sheet rounded-3xl p-6 sm:p-8 my-4 text-stone-900 shadow-[0_20px_50px_rgba(0,0,0,0.85)] border-2 border-red-700/60 relative text-left">
           
           {/* Top Silk Ribbon Accent */}
-          <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-rose-400 via-pink-400 to-amber-300 rounded-t-3xl" />
+          <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-red-700 via-rose-600 to-amber-400 rounded-t-3xl" />
 
           {/* Dried Flower Stamp */}
-          <div className="absolute top-4 right-5 text-2xl opacity-80">
+          <div className="absolute top-4 right-5 text-2xl opacity-90 text-red-600">
             🌹
           </div>
 
-          <span className="font-mono text-[10px] uppercase tracking-widest text-rose-700 font-bold block mb-2">
-            📜 Sacred Birthday Toast Decree
+          <span className="font-mono text-[10px] uppercase tracking-widest text-red-700 font-bold block mb-2">
+            📜 Sacred Birthday Toast & Promise
           </span>
 
           <p className="font-handwriting-cute text-2xl sm:text-3xl text-stone-900 leading-relaxed italic">
-            "{finaleData?.wishesText || "Here’s to another year of pure happiness, glowing health, unforgettable adventures, and a love that only grows deeper with every second that passes."}"
+            "{finaleData?.wishesText || "Here is to you, my life, my eternal love Shristi. No distance and no wedding ceremony can ever diminish the love I hold for you in my chest. Be the happiest bride, smile your brightest, and remember: if ever you look back, I am standing right where you left me. Happy Birthday!"}"
           </p>
 
-          <div className="mt-4 pt-3 border-t border-rose-200 flex justify-between items-end">
-            <span className="font-mono text-[10px] text-stone-500 font-bold">
-              Sealed with All My Love
+          <div className="mt-4 pt-3 border-t border-red-200 flex justify-between items-end">
+            <span className="font-mono text-[10px] text-stone-600 font-bold">
+              Yours Till My Dying Breath
             </span>
-            <span className="font-script-romantic text-3xl sm:text-4xl text-rose-600 font-bold">
+            <span className="font-script-romantic text-3xl sm:text-4xl text-red-700 font-bold">
               {senderName}
             </span>
           </div>
@@ -329,24 +331,24 @@ const GrandFinaleCelebration = ({
           {/* Fireworks Explosion */}
           <button
             onClick={triggerExtraCelebration}
-            className="flex-1 py-3.5 px-6 rounded-full bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 hover:from-rose-400 hover:to-pink-400 text-white font-serif-luxury tracking-wide text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_4px_25px_rgba(244,63,94,0.35)] transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+            className="flex-1 py-3.5 px-6 rounded-full bg-gradient-to-r from-red-700 via-rose-700 to-red-800 hover:from-red-600 hover:to-rose-600 text-white font-serif-luxury tracking-wide text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_4px_25px_rgba(220,38,38,0.5)] transition-transform hover:scale-105 active:scale-95 cursor-pointer"
           >
             <i className="ri-sparkling-fill text-amber-300 text-base"></i>
-            <span>Fireworks Burst 🎆</span>
+            <span>Scarlet Fireworks Burst 🎆</span>
           </button>
 
-          {/* Send Kisses & Confetti */}
+          {/* Send Roses & Confetti */}
           <button
             onClick={handleSendKiss}
-            className="py-3.5 px-6 rounded-full bg-pink-100 hover:bg-pink-200 border border-pink-300 text-rose-700 font-serif-luxury text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-sm"
+            className="py-3.5 px-6 rounded-full bg-[#170509] hover:bg-[#250810] border border-red-700/60 text-red-200 font-serif-luxury text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-sm"
           >
-            <span>Send Kisses 💋</span>
+            <span>Send Roses 🌹</span>
           </button>
 
           {/* Replay */}
           <button
             onClick={onRestart}
-            className="py-3.5 px-5 rounded-full bg-white hover:bg-rose-50 border-2 border-rose-300 text-rose-700 font-serif-luxury tracking-wide text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-sm"
+            className="py-3.5 px-5 rounded-full bg-[#120306] hover:bg-[#1e050b] border-2 border-red-700/60 text-red-300 font-serif-luxury tracking-wide text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-sm"
           >
             <i className="ri-restart-line text-base"></i>
             <span>{finaleData?.replayText || "Replay ↺"}</span>

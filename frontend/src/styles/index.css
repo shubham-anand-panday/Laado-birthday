@@ -11,8 +11,8 @@
 
   body {
     font-family: var(--font-sans);
-    background-color: #fff0f5;
-    color: #4a0e2e;
+    background-color: #070204;
+    color: #fecdd3;
     overflow-x: hidden;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
@@ -36,45 +36,51 @@
   font-family: 'Dancing Script', cursive;
 }
 
-/* Light Pink Romantic Theme - Glows & Halos */
-.glow-pink-soft {
-  filter: drop-shadow(0 0 20px rgba(244, 63, 94, 0.25)) drop-shadow(0 0 8px rgba(251, 113, 133, 0.2));
+/* Red & Black Theme - Glows & Halos */
+.glow-pink-soft,
+.glow-red-soft {
+  filter: drop-shadow(0 0 20px rgba(220, 38, 38, 0.4)) drop-shadow(0 0 8px rgba(239, 68, 68, 0.3));
 }
 
-.glow-romantic {
-  filter: drop-shadow(0 0 22px rgba(244, 63, 94, 0.3)) drop-shadow(0 0 8px rgba(251, 113, 133, 0.2));
+.glow-romantic,
+.glow-crimson {
+  filter: drop-shadow(0 0 24px rgba(220, 38, 38, 0.55)) drop-shadow(0 0 10px rgba(185, 28, 28, 0.35));
 }
 
 .glow-gold {
-  filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.35)) drop-shadow(0 0 8px rgba(245, 158, 11, 0.25));
+  filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.45)) drop-shadow(0 0 8px rgba(245, 158, 11, 0.3));
 }
 
-.text-glow-rose {
-  text-shadow: 0 0 15px rgba(244, 63, 94, 0.4), 0 0 25px rgba(225, 29, 72, 0.2);
+.text-glow-rose,
+.text-glow-red {
+  text-shadow: 0 0 16px rgba(239, 68, 68, 0.7), 0 0 30px rgba(185, 28, 28, 0.5);
 }
 
 .text-glow-gold {
-  text-shadow: 0 0 12px rgba(245, 158, 11, 0.4), 0 0 20px rgba(251, 191, 36, 0.25);
+  text-shadow: 0 0 14px rgba(245, 158, 11, 0.6), 0 0 24px rgba(251, 191, 36, 0.4);
 }
 
 .text-glow-white {
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 25px rgba(244, 114, 182, 0.5);
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 25px rgba(239, 68, 68, 0.5);
 }
 
-/* Frosted Rose Quartz Glass Card */
-.glass-pink {
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(244, 114, 182, 0.25);
-  box-shadow: 0 15px 40px -10px rgba(244, 63, 94, 0.12), 0 0 25px rgba(251, 113, 133, 0.08);
+/* Dark Obsidian & Velvet Crimson Glass Cards */
+.glass-pink,
+.glass-dark {
+  background: rgba(15, 3, 6, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(220, 38, 38, 0.35);
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(220, 38, 38, 0.2);
 }
 
-.glass-pink-subtle {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(244, 114, 182, 0.2);
+.glass-pink-subtle,
+.glass-dark-subtle {
+  background: rgba(18, 4, 7, 0.68);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(220, 38, 38, 0.22);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
 }
 
 /* Candle flame realistic animation */
@@ -82,22 +88,22 @@
   0%, 100% {
     transform: scale(1) rotate(-1deg);
     opacity: 0.96;
-    filter: drop-shadow(0 0 12px #f59e0b) drop-shadow(0 0 25px #ef4444);
+    filter: drop-shadow(0 0 14px #f59e0b) drop-shadow(0 0 28px #ef4444);
   }
   25% {
     transform: scale(1.1, 0.94) rotate(2.5deg);
     opacity: 1;
-    filter: drop-shadow(0 0 16px #fbbf24) drop-shadow(0 0 30px #f43f5e);
+    filter: drop-shadow(0 0 18px #fbbf24) drop-shadow(0 0 32px #dc2626);
   }
   50% {
     transform: scale(0.92, 1.06) rotate(-2deg);
     opacity: 0.88;
-    filter: drop-shadow(0 0 10px #f59e0b) drop-shadow(0 0 20px #e11d48);
+    filter: drop-shadow(0 0 12px #f59e0b) drop-shadow(0 0 22px #991b1b);
   }
   75% {
     transform: scale(1.05, 1.02) rotate(1.5deg);
     opacity: 1;
-    filter: drop-shadow(0 0 14px #fde047) drop-shadow(0 0 26px #ef4444);
+    filter: drop-shadow(0 0 16px #fde047) drop-shadow(0 0 28px #dc2626);
   }
 }
 
@@ -139,13 +145,13 @@
     transform: scale(1);
   }
   14% {
-    transform: scale(1.18);
+    transform: scale(1.2);
   }
   28% {
     transform: scale(1);
   }
   42% {
-    transform: scale(1.12);
+    transform: scale(1.14);
   }
   70% {
     transform: scale(1);
@@ -170,13 +176,13 @@
   animation: spinSlow 12s linear infinite;
 }
 
-/* Blush parchment texture */
+/* Deep Vintage Crimson Parchment Texture */
 .parchment-sheet {
-  background: radial-gradient(circle at 50% 50%, #ffffff 0%, #fff7fa 70%, #ffedf2 100%);
+  background: radial-gradient(circle at 50% 50%, #fff7f9 0%, #ffe4ec 65%, #fcd5e2 100%);
   box-shadow:
-    0 15px 35px -5px rgba(225, 29, 72, 0.12),
-    0 0 40px rgba(244, 63, 94, 0.08),
-    inset 0 0 40px rgba(244, 63, 94, 0.04);
+    0 20px 45px -5px rgba(0, 0, 0, 0.7),
+    0 0 45px rgba(220, 38, 38, 0.25),
+    inset 0 0 45px rgba(220, 38, 38, 0.08);
 }
 
 /* Gold foil shimmer text */
@@ -195,35 +201,31 @@
   }
 }
 
-/* Realistic wax seal */
+/* Realistic Blood-Red Wax Seal */
 .wax-seal {
-  background: radial-gradient(circle at 35% 35%, #fb7185, #e11d48 60%, #9f1239 100%);
+  background: radial-gradient(circle at 35% 35%, #ef4444, #b91c1c 60%, #450a0a 100%);
   box-shadow: 
-    0 4px 15px rgba(225, 29, 72, 0.35),
-    0 0 20px rgba(244, 63, 94, 0.25),
-    inset 0 2px 4px rgba(255, 255, 255, 0.6),
-    inset 0 -3px 6px rgba(0, 0, 0, 0.2);
+    0 6px 20px rgba(0, 0, 0, 0.8),
+    0 0 25px rgba(220, 38, 38, 0.6),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Organic Soft Glass Backdrop without box borders */
-.organic-halo {
-  background: radial-gradient(ellipse at center, rgba(244, 63, 94, 0.15) 0%, rgba(251, 113, 133, 0.08) 50%, transparent 75%);
-}
-
-/* Custom Scrollbar for Light Pink Theme */
+/* Custom Scrollbar for Red & Black Theme */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #080204;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(244, 63, 94, 0.3);
+  background: rgba(220, 38, 38, 0.5);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(244, 63, 94, 0.6);
+  background: rgba(239, 68, 68, 0.85);
 }
 
 /* Romantic Cake Keyframes & Styles */
@@ -231,22 +233,22 @@
   0%, 100% {
     transform: scale(1) rotate(-1deg);
     opacity: 0.95;
-    filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.9));
+    filter: drop-shadow(0 0 14px rgba(245, 158, 11, 0.95));
   }
   25% {
     transform: scale(1.06, 0.95) rotate(1.5deg);
     opacity: 1;
-    filter: drop-shadow(0 0 16px rgba(251, 191, 36, 1));
+    filter: drop-shadow(0 0 18px rgba(251, 191, 36, 1));
   }
   50% {
     transform: scale(0.96, 1.05) rotate(-1.5deg);
     opacity: 0.92;
-    filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.8));
+    filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.85));
   }
   75% {
     transform: scale(1.03, 1.02) rotate(1deg);
     opacity: 1;
-    filter: drop-shadow(0 0 18px rgba(253, 224, 71, 0.95));
+    filter: drop-shadow(0 0 20px rgba(253, 224, 71, 1));
   }
 }
 
@@ -461,11 +463,11 @@
 @keyframes waxCrackGlow {
   0% {
     transform: scale(1);
-    filter: drop-shadow(0 0 10px rgba(244, 63, 94, 0.5));
+    filter: drop-shadow(0 0 10px rgba(220, 38, 38, 0.6));
   }
   40% {
     transform: scale(1.25) rotate(-5deg);
-    filter: drop-shadow(0 0 25px rgba(244, 63, 94, 0.9));
+    filter: drop-shadow(0 0 25px rgba(239, 68, 68, 0.95));
   }
   100% {
     transform: scale(0) rotate(15deg);

@@ -3,27 +3,27 @@ import gsap from 'gsap';
 
 const BackgroundAmbiance = () => {
   const [ambientHearts] = useState(() => 
-    Array.from({ length: 28 }, (_, i) => ({
+    Array.from({ length: 30 }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
       size: Math.random() * 18 + 14,
       duration: Math.random() * 12 + 12,
       delay: Math.random() * 8,
-      opacity: Math.random() * 0.5 + 0.3,
-      symbol: ['🌸', '❤', '✨', '💕', '🌷', '🫧'][Math.floor(Math.random() * 6)],
-      color: ['#f43f5e', '#ec4899', '#fb7185', '#fda4af', '#f472b6', '#f59e0b'][Math.floor(Math.random() * 6)]
+      opacity: Math.random() * 0.5 + 0.35,
+      symbol: ['🌹', '🥀', '❤️', '✨', '💔', '🕯️'][Math.floor(Math.random() * 6)],
+      color: ['#dc2626', '#ef4444', '#b91c1c', '#991b1b', '#f59e0b', '#fbbf24'][Math.floor(Math.random() * 6)]
     }))
   );
 
   const [stars] = useState(() => 
-    Array.from({ length: 40 }, (_, i) => ({
+    Array.from({ length: 45 }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
       top: Math.random() * 100,
-      size: Math.random() * 3 + 1.5,
+      size: Math.random() * 2.5 + 1.2,
       duration: Math.random() * 3 + 2,
       delay: Math.random() * 4,
-      opacity: Math.random() * 0.6 + 0.2
+      opacity: Math.random() * 0.6 + 0.25
     }))
   );
 
@@ -33,18 +33,18 @@ const BackgroundAmbiance = () => {
   useEffect(() => {
     // GSAP background subtle pulse
     gsap.to('.gsap-bg-orb-1', {
-      scale: 1.2,
-      x: 30,
-      y: 20,
+      scale: 1.25,
+      x: 35,
+      y: 25,
       duration: 8,
       repeat: -1,
       yoyo: true,
       ease: 'sine.inOut'
     });
     gsap.to('.gsap-bg-orb-2', {
-      scale: 1.15,
-      x: -30,
-      y: -25,
+      scale: 1.2,
+      x: -35,
+      y: -30,
       duration: 10,
       repeat: -1,
       yoyo: true,
@@ -91,16 +91,18 @@ const BackgroundAmbiance = () => {
         ctx.globalAlpha = alpha * s.baseAlpha;
 
         if (s.isPetal) {
-          // Draw soft pink petal
+          // Draw deep crimson petal
           ctx.fillStyle = s.color;
+          ctx.shadowColor = '#dc2626';
+          ctx.shadowBlur = 10;
           ctx.beginPath();
-          ctx.ellipse(0, 0, s.size * 1.5, s.size * 0.9, 0, 0, Math.PI * 2);
+          ctx.ellipse(0, 0, s.size * 1.6, s.size * 0.9, 0, 0, Math.PI * 2);
           ctx.fill();
         } else {
-          // Draw glowing golden sparkle
+          // Draw glowing golden or ruby ember sparkle
           ctx.fillStyle = s.color;
           ctx.shadowColor = s.color;
-          ctx.shadowBlur = 8;
+          ctx.shadowBlur = 10;
           ctx.beginPath();
           ctx.arc(0, 0, s.size * (1 - progress * 0.4), 0, Math.PI * 2);
           ctx.fill();
@@ -115,7 +117,7 @@ const BackgroundAmbiance = () => {
     render();
 
     const addTrailPoint = (x, y) => {
-      const colors = ['#f43f5e', '#ec4899', '#fb7185', '#fbbf24', '#fde047', '#fda4af'];
+      const colors = ['#dc2626', '#ef4444', '#b91c1c', '#f87171', '#f59e0b', '#fbbf24'];
       for (let i = 0; i < 2; i++) {
         sparklesRef.current.push({
           x: x + (Math.random() * 16 - 8),
@@ -128,7 +130,7 @@ const BackgroundAmbiance = () => {
           vRot: (Math.random() - 0.5) * 0.05,
           birth: Date.now(),
           life: 800 + Math.random() * 400,
-          baseAlpha: 0.85,
+          baseAlpha: 0.9,
           isPetal: Math.random() > 0.6
         });
       }
@@ -156,19 +158,19 @@ const BackgroundAmbiance = () => {
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      {/* Light Pink Dreamy Theme Background Gradients */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#fff2f6] via-[#fce7ef] to-[#fad2e1]" />
+      {/* Red & Black Theme Midnight Velvet Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#060102] via-[#0d0205] to-[#150408]" />
       
-      {/* Pastel Glowing Blush Orbs (Animated by GSAP) */}
-      <div className="gsap-bg-orb-1 absolute -top-24 -left-24 w-[600px] h-[600px] bg-gradient-to-tr from-pink-300/35 via-rose-200/25 to-transparent rounded-full blur-[120px]" />
-      <div className="gsap-bg-orb-2 absolute -bottom-24 -right-24 w-[650px] h-[650px] bg-gradient-to-bl from-rose-300/30 via-pink-200/25 to-transparent rounded-full blur-[140px]" />
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-amber-200/15 rounded-full blur-[160px]" />
+      {/* Glowing Crimson & Ruby Orbs (Animated by GSAP) */}
+      <div className="gsap-bg-orb-1 absolute -top-24 -left-24 w-[650px] h-[650px] bg-gradient-to-tr from-red-950/45 via-red-900/35 to-transparent rounded-full blur-[140px]" />
+      <div className="gsap-bg-orb-2 absolute -bottom-24 -right-24 w-[700px] h-[700px] bg-gradient-to-bl from-rose-950/40 via-red-800/30 to-transparent rounded-full blur-[150px]" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[750px] h-[750px] bg-red-950/20 rounded-full blur-[170px]" />
 
-      {/* Twinkling pastel starlight */}
+      {/* Twinkling golden and scarlet starlight / embers */}
       {stars.map((star) => (
         <div
           key={star.id}
-          className="absolute rounded-full bg-amber-300 shadow-[0_0_8px_rgba(251,191,36,0.6)]"
+          className="absolute rounded-full bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.8)]"
           style={{
             left: `${star.left}%`,
             top: `${star.top}%`,
@@ -180,7 +182,7 @@ const BackgroundAmbiance = () => {
         />
       ))}
 
-      {/* Floating upward romantic pink petals and symbols */}
+      {/* Floating upward red roses, bleeding hearts, and candle flames */}
       {ambientHearts.map((heart) => (
         <div
           key={heart.id}
@@ -191,8 +193,8 @@ const BackgroundAmbiance = () => {
             fontSize: `${heart.size}px`,
             color: heart.color,
             opacity: heart.opacity,
-            filter: `drop-shadow(0 0 6px ${heart.color}55)`,
-            animation: `driftUpLightPink ${heart.duration}s cubic-bezier(0.4, 0, 0.2, 1) infinite ${heart.delay}s`,
+            filter: `drop-shadow(0 0 10px ${heart.color}88)`,
+            animation: `driftUpRedBlack ${heart.duration}s cubic-bezier(0.4, 0, 0.2, 1) infinite ${heart.delay}s`,
           }}
         >
           {heart.symbol}
@@ -203,19 +205,19 @@ const BackgroundAmbiance = () => {
       <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-10" />
 
       <style>{`
-        @keyframes driftUpLightPink {
+        @keyframes driftUpRedBlack {
           0% {
             transform: translateY(0) translateX(0) rotate(0deg) scale(0.85);
             opacity: 0;
           }
           15% {
-            opacity: 0.8;
+            opacity: 0.85;
           }
           50% {
             transform: translateY(-55vh) translateX(30px) rotate(45deg) scale(1);
           }
           85% {
-            opacity: 0.7;
+            opacity: 0.75;
           }
           100% {
             transform: translateY(-120vh) translateX(-20px) rotate(90deg) scale(0.9);

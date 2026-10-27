@@ -38,7 +38,6 @@ const AudioBar = ({ currentStep, totalSteps }) => {
     const file = e.target.files?.[0];
     if (file) {
       audio.loadCustomFile(file);
-      // reset file input value so same file can be re-selected if desired
       e.target.value = '';
     }
   };
@@ -55,42 +54,42 @@ const AudioBar = ({ currentStep, totalSteps }) => {
       ref={headerRef}
       className="fixed top-0 left-0 right-0 z-40 px-3 sm:px-8 pt-3 sm:pt-4 pb-2 flex items-center justify-between pointer-events-none select-none"
     >
-      {/* Left: Romantic Title & Chapter Badge */}
+      {/* Left: Romantic Title & Chapter Badge in Red & Black */}
       <div className="pointer-events-auto flex items-center gap-2.5 sm:gap-3">
-        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-rose-500/15 border border-rose-300/60 flex items-center justify-center text-rose-600 shadow-[0_2px_12px_rgba(244,63,94,0.2)] animate-heart-thump">
-          <i className="ri-heart-3-fill text-lg sm:text-xl text-rose-500"></i>
+        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-950/80 border border-red-600/60 flex items-center justify-center text-red-500 shadow-[0_0_15px_rgba(220,38,38,0.4)] animate-heart-thump">
+          <i className="ri-heart-3-fill text-lg sm:text-xl text-red-500"></i>
         </div>
         <div>
-          <span className="font-script-romantic text-xl sm:text-3xl text-rose-700 tracking-wide leading-none block font-bold">
-            Forever Yours
+          <span className="font-script-romantic text-xl sm:text-3xl text-red-400 text-glow-red tracking-wide leading-none block font-bold">
+            Yours Forever
           </span>
-          <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-widest text-rose-900/60 block -mt-0.5 font-medium">
+          <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-widest text-red-300/70 block -mt-0.5 font-medium">
             Chapter {currentStep + 1} of {totalSteps}
           </span>
         </div>
       </div>
 
-      {/* Right: Custom Romantic Music Player Capsule */}
+      {/* Right: Custom Romantic Music Player Capsule in Dark Obsidian & Ruby */}
       <div className="pointer-events-auto flex items-center gap-2">
-        <div className="flex items-center gap-2 sm:gap-3 bg-white/90 hover:bg-white border border-rose-300/70 rounded-full pl-2 pr-3 sm:pr-4 py-1.5 shadow-[0_8px_25px_rgba(244,63,94,0.16)] backdrop-blur-xl transition-all">
+        <div className="flex items-center gap-2 sm:gap-3 bg-[#120407]/90 hover:bg-[#1a060b] border border-red-500/40 rounded-full pl-2 pr-3 sm:pr-4 py-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.8)] backdrop-blur-xl transition-all">
           
-          {/* Spinning Pink Vinyl Record with Floating Notes */}
+          {/* Spinning Deep Black & Ruby Vinyl Record */}
           <button
             onClick={handleToggle}
             className="relative cursor-pointer transition-transform hover:scale-105 active:scale-95"
             title={isPlaying ? "Pause Romantic Music" : "Play Romantic Music"}
           >
             <div
-              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-rose-300/80 flex items-center justify-center shadow-md relative ${
-                isPlaying ? 'animate-spin-slow shadow-[0_0_15px_rgba(244,63,94,0.35)]' : ''
+              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-red-500/80 flex items-center justify-center shadow-md relative ${
+                isPlaying ? 'animate-spin-slow shadow-[0_0_20px_rgba(220,38,38,0.6)]' : ''
               }`}
               style={{
-                background: 'radial-gradient(circle, #fda4af 18%, #f43f5e 45%, #9f1239 75%, #4c0519 100%)',
+                background: 'radial-gradient(circle, #b91c1c 18%, #dc2626 45%, #7f1d1d 75%, #050102 100%)',
               }}
             >
               {/* Vinyl center gold label */}
-              <div className="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-amber-200 to-yellow-100 border border-white flex items-center justify-center shadow-inner">
-                <span className="w-1 h-1 rounded-full bg-rose-950"></span>
+              <div className="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-amber-300 to-yellow-200 border border-red-950 flex items-center justify-center shadow-inner">
+                <span className="w-1 h-1 rounded-full bg-red-950"></span>
               </div>
 
               {/* Concentric Grooves */}
@@ -100,7 +99,7 @@ const AudioBar = ({ currentStep, totalSteps }) => {
 
             {/* Music note indicator */}
             {isPlaying && (
-              <span className="absolute -top-2 -right-1 text-xs text-rose-600 animate-bounce pointer-events-none font-bold">
+              <span className="absolute -top-2 -right-1 text-xs text-red-400 animate-bounce pointer-events-none font-bold">
                 ♪
               </span>
             )}
@@ -112,19 +111,19 @@ const AudioBar = ({ currentStep, totalSteps }) => {
             className="cursor-pointer select-none max-w-[120px] sm:max-w-[180px] text-left"
             title="Click to Play/Pause"
           >
-            <div className="text-xs sm:text-sm font-semibold text-rose-950 truncate flex items-center gap-1.5 leading-tight">
+            <div className="text-xs sm:text-sm font-semibold text-white truncate flex items-center gap-1.5 leading-tight">
               <span>{currentTrack?.title || "Romantic Melody"}</span>
             </div>
-            <div className="text-[9px] sm:text-[10px] text-rose-600 font-mono truncate flex items-center gap-1">
+            <div className="text-[9px] sm:text-[10px] text-red-400 font-mono truncate flex items-center gap-1">
               <span>{isPlaying ? 'Playing • ' : 'Paused • '}</span>
-              <span className="truncate">{currentTrack?.artist || 'Kevin MacLeod'}</span>
+              <span className="truncate">{currentTrack?.artist || 'Eternal Love'}</span>
             </div>
           </div>
 
           {/* Play / Pause Toggle Button */}
           <button
             onClick={handleToggle}
-            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-600 flex items-center justify-center transition-all cursor-pointer shadow-sm hover:scale-105 active:scale-95"
+            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-red-950/80 hover:bg-red-900 border border-red-700/60 text-red-200 flex items-center justify-center transition-all cursor-pointer shadow-sm hover:scale-105 active:scale-95"
             title={isPlaying ? "Pause" : "Play"}
           >
             <i className={`text-base sm:text-lg ${isPlaying ? 'ri-pause-mini-fill' : 'ri-play-mini-fill'}`}></i>
@@ -133,7 +132,7 @@ const AudioBar = ({ currentStep, totalSteps }) => {
           {/* Next / Switch Track Button */}
           <button
             onClick={handleNextTrack}
-            className="w-7 h-7 rounded-full hover:bg-rose-100 text-rose-500 hover:text-rose-700 flex items-center justify-center transition-all cursor-pointer"
+            className="w-7 h-7 rounded-full hover:bg-red-950 text-red-400 hover:text-red-200 flex items-center justify-center transition-all cursor-pointer"
             title="Switch Next Romantic Track"
           >
             <i className="ri-skip-forward-mini-line text-base"></i>
@@ -143,15 +142,15 @@ const AudioBar = ({ currentStep, totalSteps }) => {
           <div className="relative" ref={volumeSliderRef}>
             <button
               onClick={() => setShowVolumeSlider(!showVolumeSlider)}
-              className="w-7 h-7 rounded-full hover:bg-rose-100 text-rose-500 hover:text-rose-700 flex items-center justify-center transition-all cursor-pointer"
+              className="w-7 h-7 rounded-full hover:bg-red-950 text-red-400 hover:text-red-200 flex items-center justify-center transition-all cursor-pointer"
               title="Adjust Music Volume"
             >
               <i className={`text-base ${volume === 0 ? 'ri-volume-mute-line' : volume < 0.5 ? 'ri-volume-down-line' : 'ri-volume-up-line'}`}></i>
             </button>
 
             {showVolumeSlider && (
-              <div className="absolute right-0 top-10 p-2.5 bg-white/95 rounded-2xl shadow-[0_10px_30px_rgba(244,63,94,0.2)] border border-rose-200 flex items-center gap-2 z-50 animate-in fade-in zoom-in-95 duration-200">
-                <i className="ri-volume-mute-line text-xs text-rose-400"></i>
+              <div className="absolute right-0 top-10 p-2.5 bg-[#140407]/95 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.9)] border border-red-600/50 flex items-center gap-2 z-50 animate-in fade-in zoom-in-95 duration-200">
+                <i className="ri-volume-mute-line text-xs text-red-400"></i>
                 <input
                   type="range"
                   min="0"
@@ -159,9 +158,9 @@ const AudioBar = ({ currentStep, totalSteps }) => {
                   step="0.05"
                   value={volume}
                   onChange={handleVolumeChange}
-                  className="w-24 accent-rose-500 cursor-pointer h-1.5 rounded-lg bg-rose-100"
+                  className="w-24 accent-red-600 cursor-pointer h-1.5 rounded-lg bg-red-950"
                 />
-                <i className="ri-volume-up-line text-xs text-rose-500"></i>
+                <i className="ri-volume-up-line text-xs text-red-400"></i>
               </div>
             )}
           </div>
@@ -169,7 +168,7 @@ const AudioBar = ({ currentStep, totalSteps }) => {
           {/* Custom Song Upload Trigger */}
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-600 hover:text-rose-800 flex items-center justify-center transition-all cursor-pointer"
+            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-red-950/80 hover:bg-red-900 border border-red-700/60 text-red-300 hover:text-white flex items-center justify-center transition-all cursor-pointer"
             title="Upload & Play Your Special Romantic Song (MP3/WAV)"
           >
             <i className="ri-folder-music-line text-sm sm:text-base"></i>

@@ -1,68 +1,60 @@
 import { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
-import confetti from 'canvas-confetti';
 import { audio } from '../utils/audioEngine';
 
-const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) => {
-  const [moments] = useState(videosData);
+const VideoReelMoments = ({ onNext, partnerName = 'Shristi', videosData = [] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   const [progress, setProgress] = useState(0);
   const [aspectMode, setAspectMode] = useState('reel'); // 'reel' (9:16) | 'cinema' (16:9)
   const [floatingHearts, setFloatingHearts] = useState([]);
-
+  const videoRef = useRef(null);
   const containerRef = useRef(null);
   const stageCardRef = useRef(null);
-  const videoRef = useRef(null);
   const heartIdRef = useRef(0);
-  const autoPlayTimerRef = useRef(null);
 
-  const current = moments[currentIndex] || moments[0] || {};
-  const isVideo = current.img?.endsWith('.mp4') || current.img?.includes('.mp4') || current.video;
+  const moments = videosData && videosData.length > 0 ? videosData : [
+    {
+      id: 1,
+      title: "Sparklers in the Night",
+      caption: "You brought light into my darkest corners ✨",
+      quote: "Loving you is my religion.",
+      img: "/V1.mp4",
+      tag: "Spark of Us",
+      icon: "✨",
+      ambient: "Golden Starlight"
+    }
+  ];
+
+  const current = moments[currentIndex] || moments[0];
+  const isVideo = current.img.endsWith('.mp4') || current.img.endsWith('.webm');
 
   useEffect(() => {
-    // GSAP entrance on mount
+    // GSAP entrance on video stage with clearProps
     const ctx = gsap.context(() => {
-      gsap.fromTo('.gsap-cinema-header',
-        { y: -20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out', clearProps: 'all' }
-      );
       gsap.fromTo('.gsap-cinema-stage',
-        { scale: 0.9, opacity: 0, y: 25 },
-        { scale: 1, opacity: 1, y: 0, duration: 0.7, ease: 'back.out(1.4)', clearProps: 'all' }
+        { scale: 0.92, y: 20, opacity: 0 },
+        { scale: 1, y: 0, opacity: 1, duration: 0.7, ease: 'power3.out', clearProps: 'all' }
+      );
+      gsap.fromTo('.gsap-cinema-header',
+        { y: -15, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out', clearProps: 'all' }
       );
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
-  // When changing moment, reset video and progress
-  useEffect(() => {
+  const handleSelectMoment = (index) => {
+    audio.playTap();
+    setCurrentIndex(index);
     setProgress(0);
     setIsPlaying(true);
-    if (videoRef.current) {
-      videoRef.current.currentTime = 0;
-      videoRef.current.play().catch(() => {
-        // Autoplay policy fallback: mute and play
-        if (videoRef.current) {
-          videoRef.current.muted = true;
-          setIsMuted(true);
-          videoRef.current.play().catch(() => {});
-        }
-      });
-    }
-  }, [currentIndex]);
-
-  const handleSelectMoment = (idx) => {
-    audio.playTap();
-    if (idx === currentIndex) return;
-    setCurrentIndex(idx);
 
     if (stageCardRef.current) {
       gsap.fromTo(stageCardRef.current,
-        { opacity: 0.75, scale: 0.98 },
+        { opacity: 0.4, scale: 0.98 },
         { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out', clearProps: 'all' }
       );
     }
@@ -96,7 +88,6 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
     videoRef.current.muted = nextMuted;
     setIsMuted(nextMuted);
 
-    // If video has sound unmuted, pause background music so video song is heard clearly!
     if (!nextMuted) {
       audio.pause();
     }
@@ -110,7 +101,6 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
   };
 
   const handleVideoEnded = () => {
-    // Automatically advance to next reel on end!
     handleNextMoment();
   };
 
@@ -128,7 +118,7 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
     audio.playTap();
     heartIdRef.current += 1;
     const currentId = heartIdRef.current;
-    const emojis = ['💖', '💕', '✨', '🌹', '🥰'];
+    const emojis = ['🌹', '🥀', '❤️', '✨', '🥰'];
     const chosenEmoji = emojis[currentId % emojis.length];
 
     let clientX = window.innerWidth / 2;
@@ -138,75 +128,60 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
       clientY = e.clientY;
     }
 
-    const rect = containerRef.current?.getBoundingClientRect();
-    const x = rect ? clientX - rect.left : window.innerWidth / 2;
-    const y = rect ? clientY - rect.top : 250;
-
     const newHeart = {
       id: currentId,
-      x,
-      y,
+      x: clientX + (Math.random() * 40 - 20),
+      y: clientY - 30,
       emoji: chosenEmoji
     };
 
-    setFloatingHearts((prev) => [...prev.slice(-6), newHeart]);
-    setTimeout(() => {
-      setFloatingHearts((prev) => prev.filter((h) => h.id !== currentId));
-    }, 1500);
-
-    confetti({
-      particleCount: 35,
-      spread: 60,
-      origin: {
-        x: clientX / window.innerWidth,
-        y: clientY / window.innerHeight
-      },
-      colors: ['#f43f5e', '#ec4899', '#fda4af', '#fbbf24']
-    });
+    setFloatingHearts((prev) => [...prev.slice(-10), newHeart]);
   };
 
   return (
-    <div ref={containerRef} className="relative min-h-[85vh] w-full flex flex-col items-center justify-center p-3 sm:p-6 text-center select-none overflow-hidden">
-      
-      {/* Soft Ambient Light Pink Aura */}
-      <div className="absolute w-[650px] h-[650px] rounded-full bg-radial from-rose-300/25 via-pink-200/15 to-transparent blur-3xl pointer-events-none" />
+    <div
+      ref={containerRef}
+      className="relative min-h-[85vh] w-full flex flex-col items-center justify-center p-3 sm:p-5 text-center select-none"
+    >
+      {/* Soft Ambient Crimson Atmosphere */}
+      <div className="absolute w-[600px] h-[600px] rounded-full bg-radial from-red-950/40 via-red-900/15 to-transparent blur-3xl pointer-events-none" />
 
-      {/* Floating Interactive Hearts on Screen */}
+      {/* Floating Kisses / Heart Emojis on Click */}
       {floatingHearts.map((heart) => (
         <span
           key={heart.id}
-          className="absolute z-50 pointer-events-none text-3xl animate-fade-in"
+          className="fixed z-50 pointer-events-none text-3xl animate-fade-in"
           style={{
             left: heart.x,
             top: heart.y,
             transform: 'translate(-50%, -50%)',
-            animation: 'floatPetal 1.4s ease-out forwards'
+            animation: 'floatPetal 1.6s ease-out forwards'
           }}
         >
           {heart.emoji}
         </span>
       ))}
 
-      {/* Floating Header */}
+      {/* Floating Header in Red & Black Theme */}
       <div className="gsap-cinema-header relative z-10 flex flex-col items-center mb-3 max-w-lg px-2">
-        <span className="font-mono text-xs uppercase tracking-widest text-rose-700 font-bold mb-1">
-          ✦ Living Video Keepsakes • {moments.length} Chapters of Love ✦
+        <span className="font-mono text-xs uppercase tracking-widest text-red-400 font-bold mb-1">
+          ✦ Living Video Keepsakes • {moments.length} Chapters of Devotion ✦
         </span>
-        <h2 className="text-3xl sm:text-5xl font-serif-luxury text-rose-950 leading-tight">
+        <h2 className="text-3xl sm:text-5xl font-serif-luxury text-white leading-tight">
           Moments That Breathe & Live
         </h2>
-        <p className="text-xs sm:text-sm text-rose-900/90 font-medium mt-1 max-w-md">
-          {moments.length} moving chapters carved into the stars, forever dedicated to <span className="font-bold text-rose-700">{partnerName}</span>:
+        <p className="text-xs sm:text-sm text-red-200/80 font-light mt-1 max-w-md">
+          {moments.length} moving chapters carved into the stars, forever dedicated to <span className="font-bold text-red-400">{partnerName}</span>:
         </p>
 
         {/* View Aspect Ratio Switcher */}
-        <div className="flex items-center gap-2 mt-2.5 bg-white/90 border border-rose-300 p-1 rounded-full shadow-xs">
+        <div className="flex items-center gap-2 mt-2.5 bg-[#140407]/90 border border-red-800 p-1 rounded-full shadow-xs">
           <button
             onClick={() => setAspectMode('reel')}
             className={`px-3.5 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
               aspectMode === 'reel'
-                ? 'bg-rose-500 text-white shadow-xs'
-                : 'text-rose-700 hover:text-rose-950'
+                ? 'bg-red-700 text-white shadow-xs'
+                : 'text-red-300 hover:text-white'
             }`}
           >
             <span>📱 Reel Mode</span>
@@ -215,8 +190,8 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
             onClick={() => setAspectMode('cinema')}
             className={`px-3.5 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
               aspectMode === 'cinema'
-                ? 'bg-rose-500 text-white shadow-xs'
-                : 'text-rose-700 hover:text-rose-950'
+                ? 'bg-red-700 text-white shadow-xs'
+                : 'text-red-300 hover:text-white'
             }`}
           >
             <span>🎬 Cinema Mode</span>
@@ -229,9 +204,9 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
         ref={stageCardRef}
         className="gsap-cinema-stage relative z-10 w-full flex flex-col items-center my-1"
       >
-        {/* Main Cinematic Visual Frame with Responsive Height */}
+        {/* Main Cinematic Visual Frame */}
         <div
-          className={`relative w-full rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(244,63,94,0.22)] border-2 border-rose-300 bg-black group transition-all duration-300 ${
+          className={`relative w-full rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(220,38,38,0.3)] border-2 border-red-600/70 bg-black group transition-all duration-300 ${
             aspectMode === 'reel'
               ? 'max-w-[340px] sm:max-w-[380px] aspect-[9/16] min-h-[500px] max-h-[75vh]'
               : 'max-w-2xl aspect-[16/10] sm:aspect-video min-h-[320px]'
@@ -241,7 +216,6 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
           <div className="absolute inset-0 overflow-hidden cursor-pointer" onClick={togglePlayPause}>
             {isVideo ? (
               <>
-                {/* Blurred ambient backdrop so portrait videos have gorgeous glow */}
                 <video
                   src={current.img}
                   className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110 pointer-events-none"
@@ -250,7 +224,6 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
                   muted
                   playsInline
                 />
-                {/* Main Crystal-Clear Video Player */}
                 <video
                   ref={videoRef}
                   key={current.img}
@@ -275,12 +248,12 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
             )}
 
             {/* Ambient Lighting Gradients */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/50 pointer-events-none z-10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-black/60 pointer-events-none z-10" />
 
             {/* Center Play/Pause Overlay Indicator on Pause */}
             {!isPlaying && (
-              <div className="absolute inset-0 z-30 flex items-center justify-center bg-black/35 pointer-events-none">
-                <div className="w-16 h-16 rounded-full bg-rose-500/80 backdrop-blur-md text-white flex items-center justify-center shadow-xl transform scale-110 animate-pulse">
+              <div className="absolute inset-0 z-30 flex items-center justify-center bg-black/40 pointer-events-none">
+                <div className="w-16 h-16 rounded-full bg-red-600/90 backdrop-blur-md text-white flex items-center justify-center shadow-xl transform scale-110 animate-pulse border border-red-400/50">
                   <i className="ri-play-fill text-3xl ml-1"></i>
                 </div>
               </div>
@@ -290,10 +263,10 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
           {/* Top Bar: Chapter Tag, Sound Toggle, and Send Love Button */}
           <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-30 pointer-events-auto">
             {/* Chapter Tag */}
-            <div className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-[11px] font-mono uppercase tracking-wider border border-white/20 flex items-center gap-1.5 shadow-sm">
+            <div className="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-white text-[11px] font-mono uppercase tracking-wider border border-red-700/60 flex items-center gap-1.5 shadow-sm">
               <span>{current.icon}</span>
               <span className="font-bold truncate max-w-[100px] sm:max-w-none">{current.tag}</span>
-              <span className="text-rose-300">#{currentIndex + 1}/{moments.length}</span>
+              <span className="text-red-400">#{currentIndex + 1}/{moments.length}</span>
             </div>
 
             {/* Controls: Audio Unmute, Play/Pause, Heart Shower */}
@@ -303,19 +276,19 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
                   onClick={toggleMute}
                   className={`px-2.5 py-1 rounded-full backdrop-blur-md text-xs font-mono flex items-center gap-1 border transition-all cursor-pointer shadow-md ${
                     isMuted
-                      ? 'bg-black/60 text-white/90 border-white/25 hover:bg-black/80'
-                      : 'bg-rose-500/90 text-white border-rose-300 shadow-[0_0_12px_rgba(244,63,94,0.6)] animate-pulse'
+                      ? 'bg-black/70 text-white/90 border-white/25 hover:bg-black/90'
+                      : 'bg-red-600 text-white border-red-400 shadow-[0_0_15px_rgba(220,38,38,0.8)] animate-pulse'
                   }`}
                   title={isMuted ? "Unmute Video Song" : "Mute Video"}
                 >
-                  <i className={`text-xs ${isMuted ? 'ri-volume-mute-fill text-rose-300' : 'ri-volume-up-fill text-yellow-300'}`}></i>
+                  <i className={`text-xs ${isMuted ? 'ri-volume-mute-fill text-red-300' : 'ri-volume-up-fill text-yellow-300'}`}></i>
                   <span className="text-[11px] font-semibold">{isMuted ? 'Muted' : 'Sound ON ♫'}</span>
                 </button>
               )}
 
               <button
                 onClick={togglePlayPause}
-                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/60 backdrop-blur-md text-white/90 flex items-center justify-center border border-white/20 hover:bg-black/80 transition-transform active:scale-90 cursor-pointer"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/70 backdrop-blur-md text-white/90 flex items-center justify-center border border-white/20 hover:bg-black/90 transition-transform active:scale-90 cursor-pointer"
                 title={isPlaying ? "Pause" : "Play"}
               >
                 <i className={`text-xs sm:text-sm ${isPlaying ? 'ri-pause-line' : 'ri-play-line'}`}></i>
@@ -323,7 +296,7 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
 
               <button
                 onClick={handleSendLove}
-                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-rose-500 hover:bg-rose-600 text-white flex items-center justify-center transition-transform hover:scale-110 active:scale-90 shadow-md cursor-pointer border border-white/30"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center transition-transform hover:scale-110 active:scale-90 shadow-md cursor-pointer border border-red-400"
                 title="Send Love!"
               >
                 <i className="ri-heart-fill text-xs sm:text-sm"></i>
@@ -337,7 +310,7 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
               e.stopPropagation();
               handlePrevMoment();
             }}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-sm text-white flex items-center justify-center transition-transform hover:scale-110 active:scale-95 cursor-pointer border border-white/10 opacity-70 hover:opacity-100"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-black/60 hover:bg-black/90 backdrop-blur-sm text-white flex items-center justify-center transition-transform hover:scale-110 active:scale-95 cursor-pointer border border-red-900/60 opacity-80 hover:opacity-100"
             title="Previous Chapter"
           >
             <i className="ri-arrow-left-s-line text-lg"></i>
@@ -348,7 +321,7 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
               e.stopPropagation();
               handleNextMoment();
             }}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-sm text-white flex items-center justify-center transition-transform hover:scale-110 active:scale-95 cursor-pointer border border-white/10 opacity-70 hover:opacity-100"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-black/60 hover:bg-black/90 backdrop-blur-sm text-white flex items-center justify-center transition-transform hover:scale-110 active:scale-95 cursor-pointer border border-red-900/60 opacity-80 hover:opacity-100"
             title="Next Chapter"
           >
             <i className="ri-arrow-right-s-line text-lg"></i>
@@ -359,10 +332,10 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
             <h3 className="font-serif-luxury text-lg sm:text-2xl font-bold drop-shadow-md text-white mb-0.5 leading-tight">
               {current.title}
             </h3>
-            <p className="font-handwriting-cute text-xl sm:text-2xl text-rose-200 drop-shadow-md leading-snug mb-0.5 line-clamp-2">
+            <p className="font-handwriting-cute text-xl sm:text-2xl text-red-200 drop-shadow-md leading-snug mb-0.5 line-clamp-2">
               "{current.quote}"
             </p>
-            <p className="text-[10px] sm:text-xs text-white/80 font-mono tracking-wide drop-shadow-xs line-clamp-1">
+            <p className="text-[10px] sm:text-xs text-red-300/80 font-mono tracking-wide drop-shadow-xs line-clamp-1">
               {current.caption}
             </p>
           </div>
@@ -374,7 +347,7 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
             title="Click to seek"
           >
             <div
-              className="h-full bg-gradient-to-r from-rose-500 via-pink-400 to-amber-300 relative"
+              className="h-full bg-gradient-to-r from-red-600 via-rose-500 to-amber-300 relative"
               style={{ width: `${progress}%` }}
             >
               <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-white shadow-xs" />
@@ -382,11 +355,11 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
           </div>
         </div>
 
-        {/* Dynamic Filmstrip Selector Ribbon */}
+        {/* Dynamic Filmstrip Selector Ribbon in Red & Black Theme */}
         <div className="w-full max-w-xl mt-4 px-2">
-          <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-wider text-rose-700 font-bold mb-2">
+          <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-wider text-red-400 font-bold mb-2">
             <span>🎞️ {moments.length} Living Chapters</span>
-            <span className="text-[10px] text-rose-500 font-normal">Tap to jump to chapter</span>
+            <span className="text-[10px] text-red-500 font-normal">Tap to jump to chapter</span>
           </div>
 
           <div className="flex items-center justify-center gap-2 sm:gap-2.5 flex-wrap">
@@ -396,16 +369,16 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
                 onClick={() => handleSelectMoment(idx)}
                 className={`p-2 rounded-2xl cursor-pointer transition-all flex flex-col items-center justify-center text-center border-2 min-w-[62px] sm:min-w-[80px] ${
                   currentIndex === idx
-                    ? 'bg-white border-rose-500 shadow-[0_4px_15px_rgba(244,63,94,0.3)] scale-105 ring-2 ring-rose-300'
-                    : 'bg-white/80 hover:bg-white border-rose-200 opacity-75 hover:opacity-100 hover:scale-102 shadow-xs'
+                    ? 'bg-[#20050d] border-red-500 shadow-[0_4px_15px_rgba(220,38,38,0.5)] scale-105 ring-2 ring-red-400'
+                    : 'bg-[#140407] hover:bg-[#1c060f] border-red-950 opacity-75 hover:opacity-100 hover:scale-102 shadow-xs'
                 }`}
                 title={m.title}
               >
                 <span className="text-sm sm:text-base mb-0.5">{m.icon}</span>
-                <span className="text-[10px] font-mono font-bold text-rose-950 truncate max-w-full">
+                <span className="text-[10px] font-mono font-bold text-white truncate max-w-full">
                   #{idx + 1}
                 </span>
-                <span className="text-[9px] font-serif-luxury text-rose-700/80 truncate max-w-[65px] sm:max-w-none leading-tight font-semibold">
+                <span className="text-[9px] font-serif-luxury text-red-300/80 truncate max-w-[65px] sm:max-w-none leading-tight font-semibold">
                   {m.tag}
                 </span>
               </button>
@@ -419,7 +392,7 @@ const VideoReelMoments = ({ onNext, partnerName = 'Debuu', videosData = [] }) =>
             audio.playTap();
             onNext();
           }}
-          className="mt-6 py-3.5 px-8 rounded-full bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 hover:from-rose-400 hover:to-pink-400 text-white font-serif-luxury tracking-wide text-sm flex items-center gap-2 shadow-[0_4px_25px_rgba(244,63,94,0.35)] transition-all cursor-pointer transform hover:scale-105 active:scale-95"
+          className="mt-6 py-3.5 px-8 rounded-full bg-gradient-to-r from-red-700 via-rose-700 to-red-800 hover:from-red-600 hover:to-rose-600 text-white font-serif-luxury tracking-wide text-sm flex items-center gap-2 shadow-[0_4px_25px_rgba(220,38,38,0.5)] transition-all cursor-pointer transform hover:scale-105 active:scale-95"
         >
           <span>Grand Birthday Finale 🎆</span>
           <i className="ri-arrow-right-line text-lg"></i>

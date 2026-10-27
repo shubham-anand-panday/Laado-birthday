@@ -67,8 +67,8 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen relative bg-[#fff0f5] text-[#4a0e2e] selection:bg-rose-400 selection:text-white flex flex-col justify-between overflow-x-hidden">
-      {/* Immersive Light Pink Theme Ambient Atmosphere */}
+    <div className="min-h-screen relative bg-[#070204] text-[#fecdd3] selection:bg-red-600 selection:text-white flex flex-col justify-between overflow-x-hidden">
+      {/* Immersive Red & Black Theme Ambient Atmosphere */}
       <BackgroundAmbiance />
 
       {/* Floating Ethereal Header with Custom Romantic Music Player */}
@@ -174,9 +174,9 @@ const App = () => {
         )}
       </main>
 
-      {/* Light Pink Constellation Progress Ribbon at Bottom */}
+      {/* Red & Black Constellation Progress Ribbon at Bottom */}
       <footer className="relative z-20 pb-5 flex flex-col items-center gap-1.5 pointer-events-auto">
-        <div className="flex items-center gap-2 sm:gap-2.5 px-4 py-2 rounded-full bg-white/80 backdrop-blur-xl border border-rose-300 shadow-[0_4px_20px_rgba(244,63,94,0.12)]">
+        <div className="flex items-center gap-2 sm:gap-2.5 px-4 py-2 rounded-full bg-[#120407]/90 backdrop-blur-xl border border-red-900/60 shadow-[0_4px_25px_rgba(220,38,38,0.25)]">
           {Array.from({ length: TOTAL_STEPS }).map((_, idx) => (
             <button
               key={idx}
@@ -189,16 +189,16 @@ const App = () => {
               title={`Chapter ${idx + 1}: ${chapterTitles[idx]}`}
             >
               {currentStep === idx ? (
-                <div className="w-5 h-2.5 rounded-full bg-gradient-to-r from-rose-500 via-pink-400 to-rose-600 shadow-[0_0_10px_#f43f5e]" />
+                <div className="w-5 h-2.5 rounded-full bg-gradient-to-r from-red-600 via-rose-500 to-red-600 shadow-[0_0_12px_#dc2626]" />
               ) : (
-                <div className="w-2 h-2 rounded-full bg-rose-400 group-hover:bg-rose-600" />
+                <div className="w-2 h-2 rounded-full bg-red-950 border border-red-800/40 group-hover:bg-red-600" />
               )}
             </button>
           ))}
         </div>
 
         {/* Current Chapter Tagline */}
-        <span className="text-[10px] font-mono uppercase tracking-widest text-rose-800/80 font-medium">
+        <span className="text-[10px] font-mono uppercase tracking-widest text-red-400 font-medium">
           {chapterTitles[currentStep]}
         </span>
       </footer>
