@@ -12,17 +12,17 @@ export const birthdayData = {
     playlist: [
       {
         id: "heartwarming",
-        title: "Chalre Chalre Waal",
-        artist: "____",
+        title: "Tu Hi Hai Aashiqui",
+        artist: "Arijit Singh",
         src: "/M1.mp3",
-        tag: "Piano & Strings"
+        tag: "Soft Romantic, Acoustic Melodic, Soulful"
       },
       {
         id: "heartwarming2",
-        title: "WARNING",
-        artist: "Masoom Sharma",
+        title: "Saiyaan",
+        artist: "Kailash Kher",
         src: "/M2.mp3",
-        tag: "Die-Heart Passion"
+        tag: "Soulful Sufi, Upbeat Fusion, Romantic Melody"
       },
     ]
   },
